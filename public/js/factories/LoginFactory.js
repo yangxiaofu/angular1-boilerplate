@@ -1,4 +1,6 @@
 (function() {
+
+
 	var LoginFactory = function($firebaseObject, $rootScope) {
 		var FBURL = {};
 		FBURL.BASE = $rootScope.FBURL.BASE;
@@ -11,9 +13,6 @@
 				var url_ref = new Firebase(url);
 
 				url_ref.orderByChild('email').equalTo(email).once('child_added', function(snapshot) {
-
-
-
 					if (snapshot === null) {
 						reject('Failed');
 					} else {
@@ -30,13 +29,7 @@
 
 						resolve('Success');
 					}
-
-
-
 				});
-
-
-
 			})
 		}
 
