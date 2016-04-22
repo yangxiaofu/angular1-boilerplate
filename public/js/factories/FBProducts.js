@@ -181,8 +181,6 @@
 
 				});
 			});
-
-
 		}
 
 		factory.deIndexProduct = function(product, relatedProducts) {
@@ -254,6 +252,57 @@
 
 				});
 			});
+		}
+
+		factory.removeProductFromUser = function(product, userId) {
+			return new Promise(function(resolve, reject) {
+
+				var url = FBURL.BASE + '/Users/' + userId + '/Products/' + product;
+				var url_ref = new Firebase(url);
+
+				url_ref.remove();
+
+				var url1 = FBURL.BASE + '/ProductIndex/' + product + '/Users/' + userId;
+				var url1_ref = new Firebase(url1);
+
+				url1_ref.remove();
+
+				resolve('Success Removing');
+			})
+		}
+
+		factory.addProductToUser = function(keyword, userId) {
+			var productData = {};
+
+			productData = {
+				[keyword]: true
+			}
+
+			//GET THE CATEGORIES OF THE USER
+
+			var url = FBURL.BASE + '/Users/' + userId + '/Categories';
+			var url_ref = new Firebase(url);
+			return new Promise(function(resolve, reject) {
+				url_ref.once("value", function(snapshot) {
+					var categories = snapshot.val();
+
+					FBUser.addProduct(userId, 'Products', productData)
+						.then(function(relatedProducts) {
+							FBProducts.indexProduct(userId, keyword, relatedProducts, categories)
+								.then(function(products) {
+									resolve(products);
+								})
+								.catch(function(error) {
+									reject(error);
+								});
+
+						})
+						.catch(function(error) {
+							reject('Bad Request');
+						});
+
+				});
+			})
 		}
 
 		factory.getUsers = function(product) {

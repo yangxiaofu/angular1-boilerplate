@@ -7,6 +7,35 @@
 
 		var factory = {};
 
+		factory.getUserId = function(){
+			var url = FBURL.BASE;
+			var ref = new Firebase(url);
+			var authData = ref.getAuth();
+
+			return new Promise(function(resolve, reject) {
+				if (authData) {
+					resolve(authData.uid);
+				} else {
+					reject('Not logged in');
+				}
+			})
+		}
+
+		factory.isLoggedIn = function() {
+			var url = FBURL.BASE;
+			var ref = new Firebase(url);
+			var authData = ref.getAuth();
+
+			return new Promise(function(resolve, reject) {
+				if (authData) {
+					resolve(true);
+				} else {
+					reject(false);
+				}
+			})
+
+		}
+
 		factory.makeAdmin = function(email) {
 			return new Promise(function(resolve, reject) {
 				var url = FBURL.BASE + '/Users';
@@ -76,7 +105,6 @@
 					});
 			});
 		}
-
 
 		factory.getCard = function(userId) {
 			return new Promise(function(resolve, reject) {
@@ -167,13 +195,9 @@
 
 
 					}
-
-
 				}
 
-
 			});
-
 		}
 
 		factory.signUp = function(data) {
@@ -289,7 +313,7 @@
 			ref.unauth();
 		}
 
-		factory.getUserProduct = function(userId) {
+		factory.getUserProducts = function(userId) {
 			var url = FBURL.BASE + '/Users/' + userId + '/Products';
 			var url_ref = new Firebase(url);
 

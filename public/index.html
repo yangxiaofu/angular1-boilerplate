@@ -22,14 +22,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script type="text/javascript" src="https://code.angularjs.org/1.5.5/angular-route.min.js"></script>
 
-    <!-- Firebse -->
+    <!-- Firebase -->
 
     <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
 
     <!-- AngularFire -->
-<script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.string/3.3.4/underscore.string.min.js"></script>
 
 
 
@@ -38,20 +41,20 @@
 
     <!-- Controllers -->
     <script type="text/javascript" src="js/controllers/LoginController.js"></script>
+    <script type="text/javascript" src="js/controllers/AdminController.js"></script>
+    <script type="text/javascript" src="js/controllers/CategoryController.js"></script>
+    <script type="text/javascript" src="js/controllers/ProductsController.js"></script>
+    <script type="text/javascript" src="js/controllers/SelectionController.js"></script>
 
     <!-- Factories -->
     <script type="text/javascript" src="js/factories/LoginFactory.js"></script>
     <script type="text/javascript" src="js/factories/FBObject.js"></script>
     <script type="text/javascript" src="js/factories/FBProducts.js"></script>
+    <script type="text/javascript" src="js/factories/FBCategory.js"></script>
+    <script type="text/javascript" src="js/custom.js"></script>
     
   </head>
-  <body ng-app='bconnectApp' ng-controller='loginController'>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-2" ng-cloak>
-          <h1>{{test}}</h1>  
-        </div>
-      </div>
-    </div>
+  <body ng-app="bconnectApp">
+     <div ng-view></div>
   </body>
 </html>
