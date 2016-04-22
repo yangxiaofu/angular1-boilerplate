@@ -5,7 +5,7 @@
 		$scope.getAdmin = function(word){
 			console.log(word);
 		}
-
+		
 
 		
 		// test.getUserCard("6380db0f-bce7-42cd-8814-0db5816e546e")

@@ -9,6 +9,7 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -34,6 +35,9 @@
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.string/3.3.4/underscore.string.min.js"></script>
 
+    <!-- Custom Directives -->
+
+
 
 
     <!-- Angular Controllers -->
@@ -45,6 +49,7 @@
     <script type="text/javascript" src="js/controllers/CategoryController.js"></script>
     <script type="text/javascript" src="js/controllers/ProductsController.js"></script>
     <script type="text/javascript" src="js/controllers/SelectionController.js"></script>
+    <script type="text/javascript" src="js/controllers/SignUpController.js"></script>
 
     <!-- Factories -->
     <script type="text/javascript" src="js/factories/LoginFactory.js"></script>
@@ -52,9 +57,15 @@
     <script type="text/javascript" src="js/factories/FBProducts.js"></script>
     <script type="text/javascript" src="js/factories/FBCategory.js"></script>
     <script type="text/javascript" src="js/custom.js"></script>
+
+
+    <script type="text/javascript" src="js/directives/navigationDirective.js"></script>
+    <script type="text/javascript" src="js/directives/footerDirective.js"></script>
     
   </head>
   <body ng-app="bconnectApp">
+      <nav-bar></nav-bar>
      <div ng-view></div>
+     <footer-bar></footer-bar>
   </body>
 </html>

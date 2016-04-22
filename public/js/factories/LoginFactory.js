@@ -1,6 +1,4 @@
 (function() {
-
-
 	var LoginFactory = function($firebaseObject, $rootScope) {
 		var FBURL = {};
 		FBURL.BASE = $rootScope.FBURL.BASE;

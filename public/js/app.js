@@ -13,11 +13,20 @@
 				controller: 'loginController',
 				templateUrl: 'js/views/login.html'
 			})
-			.when('/test', {
-				controller: 'selectionController',
-				templateUrl: 'js/views/test.html'
+			.when('/navigation', {
+				controller: 'signUpController',
+				templateUrl: 'js/views/login.html'
 			})
+			// .when('/', {
+			// 	controller: 'loginController',
+			// 	templateUrl: 'js/views/login.html'
+			// })
+			// .when('/test', {
+			// 	controller: 'productsController',
+			// 	templateUrl: 'js/views/test.html'
+			// });
 	})
+
 
 	app.directive('capitalizeFirst', function($parse) {
 		return {
