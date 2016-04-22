@@ -1,6 +1,6 @@
 (function() {
 	var ProductsController = function($http, $scope, user, productFactory) {
-		$scope.userId = null;
+		$scope.userId = user.getUserId();
 		$scope.email = null;
 		$scope.productToAdd = null;
 		$scope.myProducts = [];
@@ -12,7 +12,7 @@
 		init()
 
 		function init() {
-			getUserId();
+			getMyProducts();
 		}
 
 		function addRelatedProduct(product) {
@@ -30,32 +30,26 @@
 		function addProduct(product) {
 			myProducts.add(product);
 			$scope.myProducts = [...myProducts];
+			
 		}
 
 		function removeProduct(product) {
 			myProducts.delete(product);
-			$scope.myProducts = [...myProducts];
+			$scope.myProducts = [...myProducts];	
 		}
 
 		function getUserId() {
-			user.getUserId()
-				.then(function(response) {
-					$scope.userId = response.userId;
-					getMyProducts($scope.userId);
-				})
-				.catch(function(err) {
-					console.log(err);
-				})
+			
 		}
 
-		function getMyProducts(userId) {
-			user.getUserProducts(userId)
+		function getMyProducts() {
+			user.getUserProducts($scope.userId)
 				.then(function(response) {
 					for (let x in response) {
 						addProduct(x);
-						console.log(x);
 					}
-
+					$scope.$apply();
+					
 				})
 				.catch(function(error) {
 					console.log(error);
@@ -69,16 +63,14 @@
 
 				addProduct(product);
 
-				productFactory.addProductToUser(product)
+				productFactory.addProductToUser(product, $scope.userId)
 					.then(function(response) {
 						for (var x in response) {
 							relatedProducts.add(x);
 							addRelatedProduct(x);
 						}
-						console.log(response);
-					})
-					.catch(function(err) {
-						console.log(err);
+						$scope.$apply();
+						
 					})
 			}
 		}
@@ -87,9 +79,10 @@
 			if (product != null) {
 				removeProduct(product);
 
-				productFactory.removeProductFromUser(product)
+				productFactory.removeProductFromUser(product, $scope.userId)
 					.then(function() {
 						console.log('Success');
+						$scope.$apply();
 					})
 					.catch(function() {
 						console.log('Failed');
@@ -101,6 +94,7 @@
 			productFactory.getRelatedProducts($scope.productToAdd)
 				.then(function(response) {
 					console.log(`Related Product: ${$scope.relatedProducts}`);
+					$scope.$apply();
 				})
 				.catch(function(error) {
 

@@ -1,0 +1,40 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-8">
+			<div id="keyword-entry">
+				<form class="form-inline">
+					<label for="keyword">Add Products to your portfolio</label>
+					<input type="text" class="form-control" ng-model="productToAdd" id="keyword" placeholder="Enter a Product Name" />
+
+					<button type="submit" ng-click="addProductToUser(productToAdd)" class="btn btn-primary">Add</button>
+				</form>
+			</div>
+			<div id="relatedProductsList">
+				<div id="relatedProductsHeader">
+				<h2>Other Similar people have also added.</h2>
+				<p class="lead">Click the products below to add them to your list</p>
+				</div>
+				<p>
+				<div class="well well-lg">
+					<button ng-repeat="relatedProduct in relatedProducts" ng-click="addProductToUser(relatedProduct)" class="btn btn-primary relatedProductsButton">{{relatedProduct}}</button>
+				</div>
+				</p>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h4>My Products</h4>
+				</div>
+				<div class="panel-body">
+					
+						<ul class="list-group">
+							<li class="list-group-item" ng-repeat="myProduct in myProducts">{{myProduct}}<span class="badge" ng-click="removeProductFromUser(myProduct)">x</span></li>
+						</ul>				
+	
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>

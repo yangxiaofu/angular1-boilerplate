@@ -10,13 +10,7 @@
 			var ref = new Firebase(url);
 			var authData = ref.getAuth();
 
-			return new Promise(function(resolve, reject) {
-				if (authData) {
-					resolve(authData.uid);
-				} else {
-					reject('Not logged in');
-				}
-			})
+			return authData.uid;
 		}
 
 		factory.isLoggedIn = function() {
@@ -138,25 +132,26 @@
 		}
 
 		factory.addProduct = function(userId, branch, data) {
-			var url = FBURL.BASE + '/' + userBranchId + '/' + userId;
+			var url = FBURL.BASE + '/Users/' + userId;
 			var ref = new Firebase(url);
 			var branchRef = ref.child(branch);
 
 			branchRef.update(data);
 
-			var url_branch = FBURL.BASE + '/' + userBranchId + userId + '/' + branch + '.json';
+			return new Promise(function(resolve, reject){
+				var key = null;
+				for (var x in data){
+					key = x;
+				}
+				
+				var url1 = FBURL.BASE + '/Users/' + userId + '/Products';
+				var url1_ref = new Firebase(url1);
 
-			return new Promise(function(resolve, reject) {
-				request({
-					url: url_branch,
-					json: true
-				}, function(error, response, body) {
-					if (!error && response.statusCode == 200) {
-						resolve(body)
-					} else {
-						reject(error)
-					}
+				url1_ref.once('value', function(snapshot){
+					var products = snapshot.val();
+					resolve(products);
 				});
+
 			});
 		}
 
@@ -176,17 +171,14 @@
 							if (response.val() === null) {
 								reject("There is no data");
 							} else {
-								var url_branch = FBURL.BASE + '/' + userBranchId + userId + '/' + branch + '.json';
-								request({
-									url: url_branch,
-									json: true
-								}, function(error, response, body) {
-									if (!error && response.statusCode == 200) {
-										resolve(body)
-									} else {
-										reject(error)
-									}
-								});
+
+								var url1 = FBURL.BASE + '/' + userBranchId + userId + '/' + branch;
+								var url1_ref = new Firebase(url1);
+
+								url1_ref.once('value', function(snapshot){
+									var products = snapshot.val();
+									resolve(products);
+								})
 							}
 
 						});

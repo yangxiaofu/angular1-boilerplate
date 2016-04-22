@@ -7,6 +7,10 @@
 
 		init();
 
+		$scope.segueToPortolioMaker = function(){
+			window.location.href = '/#/products';
+		}
+
 		$scope.addToUser = function(category){
 			$scope.myCategoriesArray.push(category);
 			categoryFactory.addCategoryToUser(category, $scope.userId)
@@ -22,7 +26,7 @@
 			$scope.myCategoriesArray.splice(index, 1);
 			categoryFactory.removeCategoryFromUser(category, $scope.userId)
 				.then(function(resolve){
-					console.log('Success');
+					
 				})
 				.catch(function(reject){
 
@@ -55,7 +59,7 @@
 					for (myCategory in userCategories){
 						$scope.myCategoriesArray.push(myCategory);
 					}
-					console.log($scope.myCategoriesArray);
+					$scope.$apply();
 				})
 				.catch(function(err){
 					console.log(err);
@@ -69,7 +73,7 @@
 					for (var category in categories) {
 						$scope.categoriesArray.push(category);
 					}
-					console.log($scope.categoriesArray);
+					$scope.$apply();
 				})
 				.catch(function(err) {
 

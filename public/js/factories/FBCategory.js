@@ -1,27 +1,35 @@
 (function() {
-	var CategoryFactory = function($rootScope) {
+	var CategoryFactory = function($rootScope, FBObject) {
 		var FBURL = {};
 		FBURL.BASE = $rootScope.FBURL.BASE;
 		var factory = {};
 
+
 		factory.getCategories = function() {
+
 			var url = FBURL.BASE + '/Categories';
 			var url_ref = new Firebase(url);
 
 			return new Promise(function(resolve, reject) {
 				url_ref.once("value", function(snapshot) {
+
+
 					var categories = snapshot.val();
 					var myCategories = {};
 					var data = {};
 					snapshot.forEach(function(category) {
 						var categoryName = category.key();
 						data[categoryName] = true;
-					});
+
+					})
 
 					resolve(data);
 
-				});
-			})
+				})
+			});
+
+
+
 		}
 
 		factory.getUserCategories = function(userId) {
@@ -88,7 +96,7 @@
 			});
 		}
 
-		
+
 
 		factory.addProductToCategory = function(product, category) {
 			return new Promise(function(resolve, reject) {
@@ -176,6 +184,8 @@
 		return factory;
 
 	}
+
+	CategoryFactory.$inject = ['$rootScope', 'FBObject'];
 
 	angular.module('bconnectApp')
 		.factory('categoryFactory', CategoryFactory);

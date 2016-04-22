@@ -1,8 +1,8 @@
 (function() {
-	var FBProducts = function($rootScope) {
+	var FBProducts = function($rootScope, FBUser) {
 		var FBURL = {};
 		FBURL.BASE = $rootScope.FBURL.BASE;
-
+		
 		var factory = {};
 
 		function updateCategory(category, product) {
@@ -81,7 +81,7 @@
 			});
 		}
 
-		factory.indexProduct = function(userId, product, relatedProducts, categories) {
+		function indexProduct(userId, product, relatedProducts, categories) {
 			var insertedProductArray = [];
 			var relatedProductsArray = [];
 
@@ -99,9 +99,9 @@
 				name: insertedProductArray[0]
 			}
 			var url3 = FBURL.BASE + '/ProductIndex/' + insertedProductArray[0];
-			var url3_ref = new Firebase(url3);
-
+			var url3_ref = new Firebase(url3);		
 			url3_ref.update(productInitData);
+			
 
 			//Inserting related products
 			var insertedProduct_url = FBURL.BASE + '/ProductIndex/' + insertedProductArray[0] + '/RelatedProducts';
@@ -153,7 +153,6 @@
 			//Inserting the categories into the database
 			var categories_url = FBURL.BASE + '/ProductIndex/' + insertedProductArray[0] + '/Categories';
 			var categories_url_ref = new Firebase(categories_url);
-
 
 			categories_url_ref.update(categories);
 
@@ -286,20 +285,20 @@
 				url_ref.once("value", function(snapshot) {
 					var categories = snapshot.val();
 
+					console.log(`Categories ${categories}`);
+
 					FBUser.addProduct(userId, 'Products', productData)
 						.then(function(relatedProducts) {
-							FBProducts.indexProduct(userId, keyword, relatedProducts, categories)
+							indexProduct(userId, keyword, relatedProducts, categories)
 								.then(function(products) {
 									resolve(products);
+									$scope.$apply();
 								})
 								.catch(function(error) {
 									reject(error);
 								});
 
 						})
-						.catch(function(error) {
-							reject('Bad Request');
-						});
 
 				});
 			})
@@ -361,6 +360,8 @@
 		return factory;
 
 	}
+
+	FBProducts.$inject = ['$rootScope', 'loginFactory'];
 
 	angular.module('bconnectApp')
 		.factory('FBProducts', FBProducts);

@@ -1,0 +1,39 @@
+<div class="container-fluid" ng-init='checked=true'      >
+	<div class="row">
+		<div class="col-md-6">
+			<form class="form-inline">
+				<input type="text" class="form-control" placeholder="Add a Category" ng-model="categoryToAdd" />
+				<button class="btn btn-primary" ng-click="addCategory(categoryToAdd)" ng-cloak>Add Category</button>
+			</form>
+			<h2>Existing Categories</h2>
+			<ul class="list-group">
+				<li class="list-group-item" ng-repeat="category in categories">{{category}} <span class="badge cursor-pointer" ng-click='removeCategory($index)'>Remove</span></li>
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="lead">Click the category button below to see the products within the category</div>
+			<table class="table table-hover table-show">
+				<button class="btn btn-primary category-button" ng-click="showProducts(category)" data-ng-repeat="category in categories" >{{category}}</button>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12" ng-show='display'>
+			<h2>Products within {{selectedCategory}}</h2>
+			<p>
+				<form class="form-inline">
+					<input type="text" class="form-control" ng-model="productToAdd" placeholder="Enter the Product to Add to the Category">
+					<button class="btn btn-primary" ng-click="addProductToCategory()">Add Product</button>
+				</form>
+			</p>
+			<table class="table table-hover" id="list-of-products-in-category">
+				<tr ng-repeat='product in productsInCategory'>
+					<td>{{product}}</td>
+					<td><span class="badge" ng-click='removeProductFromCategory($index, product)'>Remove</span></td>
+				</tr>
+			</table>		
+		</div>
+	</div>
+</div>

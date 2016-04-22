@@ -12,29 +12,28 @@
 		init();
 		//Load anything on the page that needs to be loaded. 
 		function init() {
-			getCategories();
+			getCategories()
 		}
 
 		function getCategories() {
 			categoryFactory.getCategories()
 				.then(function(response) {
+					let _categories = [];
 					for (var each in response) {
 						$scope.categories.push(each);
 					}
-					console.log($scope.categories);
-				})
-				.catch(function() {
-
+					$scope.$apply();		
 				})
 		}
 
+		
+
 		$scope.addProductToCategory = function(category, product) {
-
-
 			categoryFactory.addProductToCategory($scope.productToAdd, $scope.selectedCategory)
 				.then(function(response) {
 					$scope.productsInCategory.push($scope.productToAdd);
 					$scope.productToAdd = null;
+					$scope.$apply();
 				})
 				.catch(function(error) {
 					console.log(error);
@@ -44,10 +43,11 @@
 
 		$scope.removeProductFromCategory = function(index, product) {
 			categoryFactory.removeProductFromCategory(product, $scope.selectedCategory)
-				.success(function(response) {
+				.then(function(response) {
 					$scope.productsInCategory.splice(index, 1);
+					$scope.$apply();
 				})
-				.error(function(err) {
+				.catch(function(err) {
 
 				})
 		}
@@ -65,6 +65,7 @@
 					for (var product in response) {
 						$scope.productsInCategory.push(product);
 					}
+					$scope.$apply();
 				})
 				.catch(function(err) {
 					console.log(err);
@@ -77,6 +78,7 @@
 					.then(function(response) {
 						$scope.categories.push($scope.categoryToAdd);
 						$scope.categoryToAdd = null;
+						$scope.$apply();
 					})
 					.catch(function(err) {
 						console.log(err);
@@ -90,10 +92,11 @@
 					var key = $scope.categories[index];
 					$scope.categories.splice(index, 1);
 					categoryFactory.removeCategory(key)
-						.success(function() {
+						.then(function() {
 							console.log('Success');
+							$scope.$apply();
 						})
-						.error(function() {
+						.catch(function() {
 							console.log('Failed');
 						});
 				}

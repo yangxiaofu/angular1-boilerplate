@@ -13,41 +13,26 @@
 				controller: 'loginController',
 				templateUrl: 'js/views/login.html'
 			})
-			.when('/navigation', {
+			.when('/signup', {
 				controller: 'signUpController',
-				templateUrl: 'js/views/login.html'
+				templateUrl: 'js/views/signup.html'
 			})
-			// .when('/', {
-			// 	controller: 'loginController',
-			// 	templateUrl: 'js/views/login.html'
-			// })
-			// .when('/test', {
-			// 	controller: 'productsController',
-			// 	templateUrl: 'js/views/test.html'
-			// });
-	})
-
-
-	app.directive('capitalizeFirst', function($parse) {
-		return {
-			require: 'ngModel',
-			link: function(scope, element, attrs, modelCtrl) {
-				var capitalize = function(inputValue) {
-					if ((inputValue === null) || (inputValue === undefined)){
-						inputValue = '';
-					}
-					var capitalized = inputValue.charAt(0).toUpperCase() +
-						inputValue.substring(1);
-					if (capitalized !== inputValue) {
-						modelCtrl.$setViewValue(capitalized);
-						modelCtrl.$render();
-					}
-					return capitalized;
-				}
-				modelCtrl.$parsers.push(capitalize);
-				capitalize($parse(attrs.ngModel)(scope)); // capitalize initial value
-			}
-		};
+			.when('/products', {
+				controller: 'productsController',
+				templateUrl: 'js/views/products.html'
+			})
+			.when('/selection', {
+				controller: 'selectionController',
+				templateUrl: 'js/views/selection.html'
+			})
+			.when('/cook', {
+				controller: 'adminController',
+				templateUrl: 'js/views/admin/cook.html'
+			})
+			.when('/bosswork', {
+				controller: 'categoryController',
+				templateUrl: 'js/views/admin/bosswork.html'
+			})
 	});
 
 
