@@ -4,7 +4,7 @@
 		.directive('navBar', function() {
 			return {
 				controller: 'navigationController as navCtrl',
-				templateUrl: 'js/modules/navigation/navigation-bar.html'
+				templateUrl: 'js/Modules/Navigation/navigation-bar.html'
 			}
 		});
 

@@ -2,7 +2,7 @@
 	angular.module('bconnectApp')
 		.directive('footerBar', function(){
 			return {
-				templateUrl: 'js/modules/footer/footer.html'
+				templateUrl: 'js/Modules/Footer/footer.html'
 			}
 		});
 }())
