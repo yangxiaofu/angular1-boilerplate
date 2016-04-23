@@ -12,11 +12,13 @@
       	<ul class="nav navbar-nav">
         	<li class="active"><a href="#">Profile <span class="sr-only">(current)</span></a></li>
       	</ul>
+          <button type="button" class="btn btn-default navbar-btn" ng-click='logout()' ng-hide='loggedIn'>Logout</button>{{loggedIn}}
       <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search Products">
         </div>
         <button type="submit" class="btn btn-danger">Search</button>
       </form>
+
     </div><!-- /.navbar-collapse -->
 </nav>

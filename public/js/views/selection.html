@@ -1,10 +1,10 @@
-<div ng-app="bconnectApp" class="container-fluid" id="selection-container">
+<div class="container-fluid" id="selection-container">
 	<div class="row" id="category-selector">
 		<div class="col-md-8">
 			<h1>Categories</h1>
 			<div class="lead">Click the categories below that best represents the products that you cover.</div>
 			<div class="well well-sm">
-				<button ng-repeat='category in categoriesArray' ng-click="addToUser(category)"class='btn btn-success category-button'>{{category}}</button>
+				<button ng-repeat='category in categoriesArray' ng-click="addCategoryToUser(category)"class='btn btn-success category-button'>{{category}}</button>
 			</div>
 		</div>
 		<div class="col-md-4">
@@ -20,10 +20,9 @@
 			</div>
 		</div>
 	</div>
-	
 	<div class="row">
 		<div class="col-md-2 col-md-offset-8">
-			<button class="btn btn-success" ng-click="segueToPortolioMaker()">Continue</button>
+			<button class="btn btn-success" ng-click="segueToPortfolioMaker()">Continue</button>
 		</div>
 	</div>
 </div>

@@ -1,77 +1,75 @@
 (function() {
-	var SelectionController = function($http, $scope, categoryFactory, userFactory) {
-
+	var SelectionController = function($http, $scope, categoryFactory, userFactory, appSettings) {
+		var categorySet = new Set();
+		var myCategorySet = new Set();
 		$scope.categoriesArray = [];
 		$scope.myCategoriesArray = [];
-		$scope.userId = null;
+		$scope.userId = userFactory.getUserId();
+		$scope.appSettings = appSettings;
+		
 
 		init();
 
-		$scope.segueToPortolioMaker = function(){
-			window.location.href = '/#/products';
-		}
 
-		$scope.addToUser = function(category){
-			$scope.myCategoriesArray.push(category);
+		$scope.addCategoryToUser = function(category) {
+			addUserCategory(category);
 			categoryFactory.addCategoryToUser(category, $scope.userId)
-				.then(function(response){	
-					console.log(response);
-				})
-				.catch(function(error){
-
+				.then(function(response) {
+					console.log('Added');
 				})
 		}
 
-		$scope.removeCategoryFromUser = function(category, index){
+		$scope.removeCategoryFromUser = function(category, index) {
+
+			//Front End User Swap
+			$scope.categoriesArray.push(category);
 			$scope.myCategoriesArray.splice(index, 1);
-			categoryFactory.removeCategoryFromUser(category, $scope.userId)
-				.then(function(resolve){
-					
-				})
-				.catch(function(reject){
-
-				});
-
+			myCategorySet.delete(category);
 			
+			categoryFactory.removeCategoryFromUser(category, $scope.userId)
+				.then(function(resolve) {
+					console.log('Removed');
+				})
 		}
+
+		$scope.segueToPortfolioMaker = function(){
+			console.log('Shoudl segue now');
+			window.location.href = '#/products';
+		}
+
+		// Functions //
 
 		function init() {
-			getUserId()
 			getCategories();
-			
+			getUserCategories($scope.userId);
 		}
 
-		function getUserId(){
+		var addUserCategory = function(category) {
+			myCategorySet.add(category);
+			let difference = new Set([...categorySet].filter(x => !myCategorySet.has(x)))
+			$scope.categoriesArray = [...difference];
+			$scope.myCategoriesArray = [...myCategorySet];
+
+		}
+
+		function getUserId() {
 			userFactory.getUserId()
-				.then(function(response){
+				.then(function(response) {
 					$scope.userId = response.userId;
 					getUserCategories($scope.userId);
 				})
-				.catch(function(error){
+				.catch(function(error) {
 					console.log(error);
-					//window.location.href = "/";
 				})
 		}
 
-		function getUserCategories(userId){
+
+
+		function getUserCategories(userId) {
 			categoryFactory.getUserCategories(userId)
-				.then(function(userCategories){
-					for (myCategory in userCategories){
-						$scope.myCategoriesArray.push(myCategory);
-					}
-					$scope.$apply();
-				})
-				.catch(function(err){
-					console.log(err);
-				})
-		}
-
-		function getCategories() {
-			categoryFactory.getCategories()
-				.then(function(categories) {
-					console.log(categories);
-					for (var category in categories) {
-						$scope.categoriesArray.push(category);
+				.then(function(userCategories) {
+					for (myCategory in userCategories) {
+						addUserCategory(myCategory);
 					}
 					$scope.$apply();
 				})
@@ -80,9 +78,25 @@
 				})
 		}
 
+		function getCategories() {
+			categoryFactory.getCategories()
+				.then(function(categories) {
+
+					for (var category in categories) {
+						categorySet.add(category);
+					}
+					$scope.$apply();
+				})
+				.catch(function(err) {
+
+				})
+		}
+
+
+
 	}
 
-	SelectionController.$inject = ['$http', '$scope', 'categoryFactory', 'loginFactory'];
+	SelectionController.$inject = ['$http', '$scope', 'categoryFactory', 'loginFactory', 'appSettings'];
 
 	angular.module('bconnectApp')
 		.controller('selectionController', SelectionController);

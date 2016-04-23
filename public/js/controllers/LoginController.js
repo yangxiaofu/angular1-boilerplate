@@ -28,6 +28,15 @@
 				$scope.message = 'Both the email address and the password must be entered';
 			}
 		}
+
+		$scope.logout = function(){
+			var url = FBURL.BASE;
+			var url_ref = new Firebase(url);
+
+			url_ref.unauth();
+
+			return;
+		}
 	}
 
 	LoginController.$inject = ['$scope', 'loginFactory'];

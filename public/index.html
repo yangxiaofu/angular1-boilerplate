@@ -28,28 +28,26 @@
     <!-- Firebase -->
 
     <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
-
     <!-- AngularFire -->
     <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.string/3.3.4/underscore.string.min.js"></script>
-
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
-
-
-
-
+    
     <!-- Angular Controllers -->
     <script src="js/app.js"></script>
 
+    <script type="text/javascript" src="js/utility/constants.js"></script>
+
     <!-- Controllers -->
+    <script type="text/javascript" src="js/controllers/NavigationController.js"></script>
     <script type="text/javascript" src="js/controllers/LoginController.js"></script>
     <script type="text/javascript" src="js/controllers/AdminController.js"></script>
     <script type="text/javascript" src="js/controllers/CategoryController.js"></script>
     <script type="text/javascript" src="js/controllers/ProductsController.js"></script>
     <script type="text/javascript" src="js/controllers/SelectionController.js"></script>
     <script type="text/javascript" src="js/controllers/SignUpController.js"></script>
+    
 
     <!-- Factories -->
     <script type="text/javascript" src="js/factories/LoginFactory.js"></script>
@@ -65,7 +63,7 @@
     
   </head>
   <body ng-app="bconnectApp">
-      <nav-bar></nav-bar>
+     <nav-bar></nav-bar>
      <div ng-view></div>
      <footer-bar></footer-bar>
   </body>

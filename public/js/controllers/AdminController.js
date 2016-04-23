@@ -1,10 +1,6 @@
 (function(){
 	var AdminController = function($scope, $http, user){
-		$scope.email = null;
-		$scope.users = [];
 		$scope.emailsArray = [];
-		$scope.names = [];
-		var emailUserIdCombo = {};
 
 		init();
 
@@ -15,65 +11,44 @@
 		function getUsers(){
 			user.getAdmin()
 				.then(function(usersObject){
-
-					for (x in usersObject){
-						emailUserIdCombo = {
-							email: usersObject[x].email,
-							userId: usersObject[x].userId
-						}
-
-						$scope.emailsArray.push(emailUserIdCombo);
+					var user = new Map();
+					for (var x in usersObject){
+						user.set(usersObject[x].userId, usersObject[x].email);
 					}
-					console.log($scope.emailsArray);
+					$scope.emailsArray = [...user];
+					$scope.$apply();
+					
 				})
-				.catch(function(error){
-					console.log(error);
+				.catch(function(err){
+					console.log(err);
 				})
 		}
 		$scope.getUsers = function(){
 			$scope.email = null;
 			$scope.emailsArray = [];
-			getUsers();	
+			getUsers();
 		}
 
 		$scope.makeAdmin = function(){
-			
-			if ($scope.email === null){
-				//ERROR HANDLING HERE.
-				
-			}else{
-				var data = {
-					email: $scope.email
-				}
-
-				$http.put('user/makeAdmin', data)
-					.success(function(userId){
-						var data = {
-							userId: userId, 
-							email: $scope.email
-						}
-						$scope.emailsArray.push(data);
-						$scope.email = null;
-					})
-					.error(function(err){
-						console.log(err);
-						console.log('There was an error');
-					})
-			}	
-		}
-
-		$scope.removeAdmin = function(index){
-			user.removeAdmin($scope.emailsArray[index].userId)
-				.success(function(response){
-					$scope.emailsArray.splice(index, 1);
+			user.makeAdmin($scope.email)
+			user.getUserIdFromEmail($scope.email)
+				.then(function(userId){
+					var user = new Map();
+					user.set(userId, $scope.email);
+					$scope.emailsArray.push(...user);
+					$scope.$apply();
 				})
-				.error(function(err){
-
+				.catch(function(err){
+					console.log(err);
 				})
 		}
 
-
-
+		$scope.removeAdmin = function(_user){
+			var userId = _user[0];
+			var index = $scope.emailsArray.indexOf(_user);
+			$scope.emailsArray.splice(index,1);
+			user.removeAdmin(userId);
+		}
 	}
 
 	AdminController.$inject = ['$scope', '$http', 'loginFactory'];

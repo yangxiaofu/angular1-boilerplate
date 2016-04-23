@@ -5,66 +5,58 @@
 
 		var factory = {};
 
-		factory.getUserId = function(){
+		factory.getUserId = function() {
 			var url = FBURL.BASE;
 			var ref = new Firebase(url);
 			var authData = ref.getAuth();
-
 			return authData.uid;
 		}
 
 		factory.isLoggedIn = function() {
 			var url = FBURL.BASE;
 			var ref = new Firebase(url);
-			var authData = ref.getAuth();
 
 			return new Promise(function(resolve, reject) {
-				if (authData) {
+				var loggedIn = ref.getAuth();
+				if (loggedIn !== null) {
 					resolve(true);
 				} else {
-					reject(false);
+					resolve(false);
 				}
 			})
-
 		}
 
 		factory.makeAdmin = function(email) {
-			return new Promise(function(resolve, reject) {
-				var url = FBURL.BASE + '/Users';
-				var url_ref = new Firebase(url);
 
-				url_ref.orderByChild('email').equalTo(email).once('child_added', function(snapshot) {
-					if (snapshot === null) {
-						reject('Failed');
-					} else {
-						var user = snapshot.val();
-						var userId = user.userId;
-						var data = {
-							isAdmin: true
-						}
+			var url = FBURL.BASE + '/Users';
+			var url_ref = new Firebase(url);
 
-						var url1 = FBURL.BASE + '/Users/' + userId;
-						var url1_ref = new Firebase(url1);
+			url_ref.orderByChild('email').equalTo(email).once('child_added', function(snapshot) {
+				var user = snapshot.val();
+				var userId = user.userId;
+				var data = {
+					isAdmin: true
+				}
 
-						url1_ref.update(data);
+				var url1 = FBURL.BASE + '/Users/' + userId;
+				var url1_ref = new Firebase(url1);
 
-						resolve('Success');
-					}
-				});
-			})
+				url1_ref.update(data);
+
+				return;
+			});
 		}
 
 		factory.removeAdmin = function(userId) {
-			return new Promise(function(resolve, reject) {
 
-				var data = {
-					isAdmin: false
-				}
-				var url = FBURL.BASE + '/Users/' + userId;
-				var url_ref = new Firebase(url);
-				url_ref.update(data);
-				resolve('Success');
-			});
+			var data = {
+				isAdmin: false
+			}
+			var url = FBURL.BASE + '/Users/' + userId;
+			var url_ref = new Firebase(url);
+			url_ref.update(data);
+			return;
+
 		}
 
 		factory.getAdmin = function() {
@@ -88,13 +80,13 @@
 
 		factory.getUserIdFromEmail = function(email) {
 			return new Promise(function(resolve, reject) {
-				getUserIdFromEmail(email)
-					.then(function(userId) {
-						resolve(userId);
-					})
-					.catch(function(error) {
-						reject(error);
-					});
+				var url = FBURL.BASE + '/Users/';
+				var url_ref = new Firebase(url);
+
+				url_ref.orderByChild('email').equalTo(email).once('child_added', function(snapshot){
+					var userId = snapshot.key();
+					resolve(userId);
+				})
 			});
 		}
 
@@ -138,16 +130,16 @@
 
 			branchRef.update(data);
 
-			return new Promise(function(resolve, reject){
+			return new Promise(function(resolve, reject) {
 				var key = null;
-				for (var x in data){
+				for (var x in data) {
 					key = x;
 				}
-				
+
 				var url1 = FBURL.BASE + '/Users/' + userId + '/Products';
 				var url1_ref = new Firebase(url1);
 
-				url1_ref.once('value', function(snapshot){
+				url1_ref.once('value', function(snapshot) {
 					var products = snapshot.val();
 					resolve(products);
 				});
@@ -175,7 +167,7 @@
 								var url1 = FBURL.BASE + '/' + userBranchId + userId + '/' + branch;
 								var url1_ref = new Firebase(url1);
 
-								url1_ref.once('value', function(snapshot){
+								url1_ref.once('value', function(snapshot) {
 									var products = snapshot.val();
 									resolve(products);
 								})
@@ -309,9 +301,7 @@
 
 			return new Promise(function(resolve, reject) {
 				url_ref.once('value', function(snapshot) {
-
 					resolve(snapshot.val());
-
 				});
 			})
 		}

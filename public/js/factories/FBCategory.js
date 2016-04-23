@@ -12,8 +12,6 @@
 
 			return new Promise(function(resolve, reject) {
 				url_ref.once("value", function(snapshot) {
-
-
 					var categories = snapshot.val();
 					var myCategories = {};
 					var data = {};
@@ -27,9 +25,6 @@
 
 				})
 			});
-
-
-
 		}
 
 		factory.getUserCategories = function(userId) {
@@ -45,7 +40,6 @@
 						resolve(categories);
 					});
 				})
-
 			}
 		}
 

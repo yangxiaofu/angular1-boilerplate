@@ -17,7 +17,6 @@
 
 		function addRelatedProduct(product) {
 			relatedProducts.add(product);
-			
 			let difference = new Set([...relatedProducts].filter(x => !myProducts.has(x)));
 			$scope.relatedProducts = [...difference];
 		}
@@ -30,7 +29,6 @@
 		function addProduct(product) {
 			myProducts.add(product);
 			$scope.myProducts = [...myProducts];
-			
 		}
 
 		function removeProduct(product) {
@@ -52,7 +50,7 @@
 					
 				})
 				.catch(function(error) {
-					console.log(error);
+					
 				})
 		}
 
@@ -81,11 +79,10 @@
 
 				productFactory.removeProductFromUser(product, $scope.userId)
 					.then(function() {
-						console.log('Success');
 						$scope.$apply();
 					})
 					.catch(function() {
-						console.log('Failed');
+						
 					})
 			}
 		}
@@ -93,7 +90,7 @@
 		$scope.getRelatedProducts = function() {
 			productFactory.getRelatedProducts($scope.productToAdd)
 				.then(function(response) {
-					console.log(`Related Product: ${$scope.relatedProducts}`);
+
 					$scope.$apply();
 				})
 				.catch(function(error) {

@@ -2,7 +2,7 @@
 	var FBProducts = function($rootScope, FBUser) {
 		var FBURL = {};
 		FBURL.BASE = $rootScope.FBURL.BASE;
-		
+
 		var factory = {};
 
 		function updateCategory(category, product) {
@@ -99,9 +99,9 @@
 				name: insertedProductArray[0]
 			}
 			var url3 = FBURL.BASE + '/ProductIndex/' + insertedProductArray[0];
-			var url3_ref = new Firebase(url3);		
+			var url3_ref = new Firebase(url3);
 			url3_ref.update(productInitData);
-			
+
 
 			//Inserting related products
 			var insertedProduct_url = FBURL.BASE + '/ProductIndex/' + insertedProductArray[0] + '/RelatedProducts';
@@ -182,7 +182,7 @@
 			});
 		}
 
-		factory.deIndexProduct = function(product, relatedProducts) {
+		function deIndexProduct(product, relatedProducts) {
 			var insertedProductArray = [product];
 			var relatedProductsArray = [];
 
@@ -266,6 +266,8 @@
 
 				url1_ref.remove();
 
+				//TODO: - DeIndex Product is important
+
 				resolve('Success Removing');
 			})
 		}
@@ -284,8 +286,6 @@
 			return new Promise(function(resolve, reject) {
 				url_ref.once("value", function(snapshot) {
 					var categories = snapshot.val();
-
-					console.log(`Categories ${categories}`);
 
 					FBUser.addProduct(userId, 'Products', productData)
 						.then(function(relatedProducts) {

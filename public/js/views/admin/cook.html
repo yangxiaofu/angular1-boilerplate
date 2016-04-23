@@ -14,8 +14,8 @@
 		<div class="col-md-12">
 			<h1>Adminstrators</h1>
 			<table class="table">
-				<tr ng-repeat="x in emailsArray track by $index">
-					<td>{{x.email}}<span class="badge" ng-click="removeAdmin($index)">x</span></td> 
+				<tr ng-repeat="user in emailsArray">
+					<td>{{user[1]}}<span class="badge" ng-click="removeAdmin(user)">x</span></td> 
 				</tr>
 			</table>
 		</div>

@@ -22,15 +22,14 @@
 			} else {
 				user.signUp(data)
 					.then(function(response) {
-						var loginData = {};
-						loginData.email = $scope.email;
-						loginData.password = $scope.password;
-						loginFactory.login(data)
-							.success(function(response) {
-								window.location = 'selection';
+						console.log('Signed Up Successfully');
+						user.login($scope.email, $scope.password)
+							.then(function(response) {
+								console.log('Should redirect');
+								window.location.href = '#/selection';
 							})
-							.error(function(error) {
-								
+							.catch(function(error) {
+								console.log('Problem Loggin In');
 							})
 					})
 					.catch(function(error) {
