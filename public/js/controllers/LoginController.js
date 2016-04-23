@@ -1,5 +1,5 @@
 (function() {
-	var LoginController = function($scope, user) {
+	var LoginController = function($scope, user, $rootScope) {
 		$scope.email = null;
 		$scope.password = null;
 		$scope.message = null;
@@ -15,6 +15,7 @@
 			if (($scope.email !== null) && ($scope.password !== null)) {
 				user.login($scope.email, $scope.password)
 					.then(function(response) {
+						$rootScope.loggedIn = true;
 						window.location.href = "/#/products";
 					})
 					.catch(function(error) {
@@ -39,7 +40,7 @@
 		}
 	}
 
-	LoginController.$inject = ['$scope', 'loginFactory'];
+	LoginController.$inject = ['$scope', 'loginFactory', '$rootScope'];
 
 	angular.module('bconnectApp')
 		.controller('loginController', LoginController);
