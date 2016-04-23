@@ -1,5 +1,5 @@
 (function() {
-	var LoginController = function($scope, user, $rootScope) {
+	var LoginController = function($scope, user, $rootScope, $window) {
 		$scope.email = null;
 		$scope.password = null;
 		$scope.message = null;
@@ -8,13 +8,12 @@
 		data = {};
 
 		$scope.login = function() {
-			data = {
-				email: $scope.email,
-				password: $scope.password
-			};
+
 			if (($scope.email !== null) && ($scope.password !== null)) {
 				user.login($scope.email, $scope.password)
 					.then(function(response) {
+						$window.sessionStorage.currentUser = response.uid;
+						$window.sessionStorage.loggedIn = true;
 						$rootScope.loggedIn = true;
 						window.location.href = "/#/products";
 					})
@@ -29,18 +28,9 @@
 				$scope.message = 'Both the email address and the password must be entered';
 			}
 		}
-
-		$scope.logout = function(){
-			var url = FBURL.BASE;
-			var url_ref = new Firebase(url);
-
-			url_ref.unauth();
-
-			return;
-		}
 	}
 
-	LoginController.$inject = ['$scope', 'loginFactory', '$rootScope'];
+	LoginController.$inject = ['$scope', 'userFactory', '$rootScope', '$window'];
 
 	angular.module('bconnectApp')
 		.controller('loginController', LoginController);

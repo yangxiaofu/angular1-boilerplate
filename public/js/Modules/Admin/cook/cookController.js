@@ -51,7 +51,7 @@
 		}
 	}
 
-	AdminController.$inject = ['$scope', '$http', 'loginFactory'];
+	AdminController.$inject = ['$scope', '$http', 'userFactory'];
 
 	angular.module('bconnectApp')
 		.controller('adminController', AdminController);

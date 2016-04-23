@@ -1,9 +1,6 @@
 (function() {
-	var NavigationController = function(user, $rootScope) {
+	var NavigationController = function(user, $rootScope, $window) {
 		
-		init();
-
-
 		function init() {
 			user.isLoggedIn()
 				.then(function(loggedIn) {
@@ -20,9 +17,11 @@
 			user.logout();
 			window.location.href = '/';
 		}
+
+		init();
 	}
 
-	NavigationController.$inject = ['loginFactory', '$rootScope'];
+	NavigationController.$inject = ['userFactory', '$rootScope', '$window'];
 
 	angular.module('bconnectApp')
 		.controller('navigationController', NavigationController);

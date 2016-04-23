@@ -361,7 +361,7 @@
 
 	}
 
-	FBProducts.$inject = ['$rootScope', 'loginFactory'];
+	FBProducts.$inject = ['$rootScope', 'userFactory'];
 
 	angular.module('bconnectApp')
 		.factory('FBProducts', FBProducts);

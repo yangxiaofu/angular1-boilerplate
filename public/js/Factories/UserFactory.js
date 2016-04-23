@@ -78,6 +78,17 @@
 			})
 		}
 
+		factory.getUserProducts = function(userId) {
+			var url = FBURL.BASE + '/Users/' + userId + '/Products';
+			var url_ref = new Firebase(url);
+
+			return new Promise(function(resolve, reject) {
+				url_ref.once('value', function(snapshot) {
+					resolve(snapshot.val());
+				});
+			})
+		}
+
 		factory.getUserIdFromEmail = function(email) {
 			return new Promise(function(resolve, reject) {
 				var url = FBURL.BASE + '/Users/';
@@ -90,24 +101,7 @@
 			});
 		}
 
-		factory.getCard = function(userId) {
-			return new Promise(function(resolve, reject) {
-				var url = FBURL.BASE + '/Card';
-				var url_ref = new Firebase(url);
-
-				url_ref.orderByChild('userId').equalTo(userId).once("value", function(snapshot) {
-
-					if (snapshot.val() === null) {
-						var error = {};
-						error.message = "This user has no cards";
-						reject(error);
-					} else {
-						resolve(snapshot.val());
-					}
-
-				});
-			});
-		}
+		
 
 		factory.get = function(userId, branch) {
 			var url = FBURL.BASE + '/' + userBranchId + '/' + userId + '/' + branch;
@@ -292,19 +286,11 @@
 		factory.logout = function() {
 			var url = FBURL.BASE;
 			var ref = new Firebase(url);
+			$rootScope.uid = null;
 			ref.unauth();
 		}
 
-		factory.getUserProducts = function(userId) {
-			var url = FBURL.BASE + '/Users/' + userId + '/Products';
-			var url_ref = new Firebase(url);
-
-			return new Promise(function(resolve, reject) {
-				url_ref.once('value', function(snapshot) {
-					resolve(snapshot.val());
-				});
-			})
-		}
+		
 
 
 		// create a synchronized array
@@ -316,5 +302,5 @@
 	}
 
 	angular.module('bconnectApp')
-		.factory('loginFactory', LoginFactory);
+		.factory('userFactory', LoginFactory);
 }())

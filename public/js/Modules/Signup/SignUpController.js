@@ -39,7 +39,7 @@
 		}
 	}
 
-	SignUpController.$inject = ['$scope', '$http', 'loginFactory'];
+	SignUpController.$inject = ['$scope', '$http', 'userFactory'];
 
 	angular.module('bconnectApp')
 		.controller('signUpController', SignUpController);

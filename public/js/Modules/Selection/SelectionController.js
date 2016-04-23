@@ -96,7 +96,7 @@
 
 	}
 
-	SelectionController.$inject = ['$http', '$scope', 'categoryFactory', 'loginFactory', 'appSettings'];
+	SelectionController.$inject = ['$http', '$scope', 'categoryFactory', 'userFactory', 'appSettings'];
 
 	angular.module('bconnectApp')
 		.controller('selectionController', SelectionController);

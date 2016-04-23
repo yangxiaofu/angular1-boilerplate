@@ -2,38 +2,46 @@
 	var app = angular.module('bconnectApp', ['firebase', 'ngRoute'])
 		.run(function($rootScope) {
 			$rootScope.FBURL = {
-				BASE: "https://bconnectto.firebaseio.com/",
-				loggedIn: false
+				BASE: "https://bconnectto.firebaseio.com/"
 			}
 		})
 
 	app.config(function($routeProvider) {
 		//Routes go here
 		$routeProvider
-			.when('/', {
+			.when('/login', {
 				controller: 'loginController',
-				templateUrl: 'js/views/login.html'
+				templateUrl: 'js/Modules/Login/login.html'
+			})
+			.when('/', {
+				controller: 'productsController',
+				templateUrl: 'js/Modules/Products/products.html'
 			})
 			.when('/signup', {
 				controller: 'signUpController',
-				templateUrl: 'js/views/signup.html'
+				templateUrl: 'js/Modules/Signup/signup.html'
 			})
 			.when('/products', {
 				controller: 'productsController',
-				templateUrl: 'js/views/products.html'
+				templateUrl: 'js/Modules/Products/products.html'
 			})
 			.when('/selection', {
 				controller: 'selectionController',
-				templateUrl: 'js/views/selection.html'
+				templateUrl: 'js/Modules/Selection/selection.html'
 			})
-			.when('/cook', {
-				controller: 'adminController',
-				templateUrl: 'js/views/admin/cook.html'
+			.when('/admin/cook', {
+				controller: 'cookController',
+				templateUrl: 'js/Modules/Admin/cook/cook.html'
 			})
-			.when('/bosswork', {
+			.when('/admin/bosswork', {
 				controller: 'categoryController',
-				templateUrl: 'js/views/admin/bosswork.html'
+				templateUrl: 'js/Modules/Admin/bosswork/bosswork.html'
 			})
+			.when('/profile', {
+				controller: 'profileController',
+				templateUrl: 'js/Modules/Profile/profile.html'
+			})
+			.otherwise({redirect: '/'})
 	});
 
 
