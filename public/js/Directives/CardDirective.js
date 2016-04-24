@@ -3,7 +3,7 @@
 		.directive('myCard', function() {
 			return {
 				controller: 'cardController',
-				templateUrl: 'js/modules/Card/card.html'
+				templateUrl: 'js/Modules/Card/card.html'
 			}
 		});
 

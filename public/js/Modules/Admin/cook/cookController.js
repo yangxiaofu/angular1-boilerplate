@@ -51,7 +51,7 @@
 		}
 	}
 
-	AdminController.$inject = ['$scope', '$http', 'userFactory'];
+	CookController.$inject = ['$scope', '$http', 'userFactory'];
 
 	angular.module('bconnectApp')
 		.controller('cookController', CookController);
