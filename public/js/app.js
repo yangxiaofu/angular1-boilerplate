@@ -5,9 +5,7 @@
 				BASE: "https://bconnectto.firebaseio.com/"
 			}
 		})
-
 		
-
 	app.config(function($routeProvider) {
 		//Routes go here
 		$routeProvider

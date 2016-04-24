@@ -1,4 +1,5 @@
 (function(){
+	//Re-write this
 	angular.module('bconnectApp')
 		.directive('myCard', function() {
 			return {
