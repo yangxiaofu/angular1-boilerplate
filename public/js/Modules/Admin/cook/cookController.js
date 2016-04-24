@@ -1,5 +1,5 @@
 (function(){
-	var AdminController = function($scope, $http, user){
+	var CookController = function($scope, $http, user){
 		$scope.emailsArray = [];
 
 		init();
@@ -54,5 +54,5 @@
 	AdminController.$inject = ['$scope', '$http', 'userFactory'];
 
 	angular.module('bconnectApp')
-		.controller('adminController', AdminController);
+		.controller('cookController', CookController);
 }())
