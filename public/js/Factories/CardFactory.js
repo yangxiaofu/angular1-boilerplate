@@ -35,7 +35,7 @@
 				var url = FBURL.BASE + '/Card/' + key;
 				var url_ref = new Firebase(url);
 
-				url_ref.update(...info);
+				url_ref.update(info);
 
 				resolve('You have successfully updated your information');
 			});

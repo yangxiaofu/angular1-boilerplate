@@ -16,6 +16,7 @@
 		function getCard(userId) {
 			cardFactory.getCard(userId)
 				.then(function(card) {
+					console.log(card);
 					$scope.cardKey = card.key;
 					$scope.cardName = card.info.Name;
 					$scope.cardCompany = card.info.Company;
