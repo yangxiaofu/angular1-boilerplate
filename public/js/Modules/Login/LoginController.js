@@ -8,6 +8,7 @@
 		data = {};
 
 		$scope.login = function() {
+
 			if (($scope.email !== null) && ($scope.password !== null)) {
 				user.login($scope.email, $scope.password)
 					.then(function(response) {

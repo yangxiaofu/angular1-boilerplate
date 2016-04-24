@@ -2,12 +2,29 @@
 	var ArrayFactory = function() {
 		var factory = {};
 
+		//A will filter out the indexes in B
+		factory.filter = function(a, b){
+			var result = [];
+
+			var aSet = new Set(a);
+			var bSet = new Set(b);
+
+			for (var i in b){
+				var check = aSet.has(b[i]);
+				var index = a.indexOf(b[i]);
+
+				if (check === true){
+					a.splice(index, 1);
+				}
+			}
+
+			return a;
+		}
+
 		factory.intersection = function(a, b) {
 			var result = [];
 
 			for (var i in a) {
-
-
 				for (var x in b) {
 					if (a[i] === b[x]) {
 						result.push(a[i]);
