@@ -14,8 +14,8 @@
 				templateUrl: 'js/Modules/Login/login.html'
 			})
 			.when('/', {
-				controller: 'productsController',
-				templateUrl: 'js/Modules/Products/products.html'
+				controller: 'searchController',
+				templateUrl: 'js/Modules/Search/search.html'
 			})
 			.when('/signup', {
 				controller: 'signUpController',
@@ -40,6 +40,10 @@
 			.when('/profile', {
 				controller: 'profileController',
 				templateUrl: 'js/Modules/Profile/profile.html'
+			})
+			.when('/search', {
+				controller: 'searchController', 
+				templateUrl: 'js/Modules/Search/search.html'
 			})
 			.otherwise({redirect: '/'})
 	});

@@ -15,14 +15,7 @@
 					var categories = snapshot.val();
 					var myCategories = {};
 					var data = {};
-					snapshot.forEach(function(category) {
-						var categoryName = category.key();
-						data[categoryName] = true;
-
-					})
-
-					resolve(data);
-
+					resolve(categories);
 				})
 			});
 		}
