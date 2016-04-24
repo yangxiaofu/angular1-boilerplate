@@ -1,5 +1,5 @@
 (function() {
-	var LoginFactory = function($firebaseObject, $rootScope) {
+	var LoginFactory = function($rootScope, $window) {
 		var FBURL = {};
 		FBURL.BASE = $rootScope.FBURL.BASE;
 
@@ -94,14 +94,14 @@
 				var url = FBURL.BASE + '/Users/';
 				var url_ref = new Firebase(url);
 
-				url_ref.orderByChild('email').equalTo(email).once('child_added', function(snapshot){
+				url_ref.orderByChild('email').equalTo(email).once('child_added', function(snapshot) {
 					var userId = snapshot.key();
 					resolve(userId);
 				})
 			});
 		}
 
-		
+
 
 		factory.get = function(userId, branch) {
 			var url = FBURL.BASE + '/' + userBranchId + '/' + userId + '/' + branch;
@@ -267,39 +267,42 @@
 		}
 
 		factory.login = function(email, password) {
-			var data = {
-				email: email,
-				password: password
-			}
-			var url = FBURL.BASE;
-			var ref = new Firebase(url);
-
-			return ref.authWithPassword(data, function(error, authData) {
-				if (error) {
-					console.log('failed');
-				} else {
-					console.log('success');
+			return new Promise(function(resolve, reject){
+				var data = {
+					email: email,
+					password: password
 				}
+				var url = FBURL.BASE;
+				var ref = new Firebase(url);
+
+				ref.authWithPassword(data, function(error, authData) {
+					if (error) {
+						reject(error);
+							
+					} else {
+						$rootScope.loggedIn = true;
+						$window.sessionStorage.loggedIn = true;
+						$window.sessionStorage.uid = authData.uid;
+						resolve('Success');
+					}
+				})
 			})
+
 		}
 
 		factory.logout = function() {
 			var url = FBURL.BASE;
 			var ref = new Firebase(url);
+			$window.sessionStorage.loggedIn = false;
+			$window.sessionStorage.uid = null;
+			$rootScope.loggedIn = false;
 			$rootScope.uid = null;
 			ref.unauth();
 		}
-
-		
-
-
-		// create a synchronized array
-		// click on `index.html` above to see it used in the DOM!
-
-
-
 		return factory;
 	}
+
+	LoginFactory.$inject = ['$rootScope', '$window'];
 
 	angular.module('bconnectApp')
 		.factory('userFactory', LoginFactory);

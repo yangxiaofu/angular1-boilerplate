@@ -1,9 +1,8 @@
 (function() {
-	var ProductsController = function($http, $scope, user, productFactory, $rootScope) {
-
-		console.log($rootScope.loggedIn);
-		if ($rootScope.loggedIn === true) {
-
+	var ProductsController = function($http, $scope, user, productFactory, $rootScope, $window, $location) {
+		var loggedIn = $rootScope.loggedIn;
+		
+		if (loggedIn) {
 			$scope.userId = user.getUserId();
 			$scope.email = null;
 			$scope.productToAdd = null;
@@ -13,16 +12,19 @@
 			var myProducts = new Set();
 			var relatedProducts = new Set();
 
-			init()
-
 			function init() {
 				getMyProducts();
 			}
 
 			function addRelatedProduct(product) {
 				relatedProducts.add(product);
-				let difference = new Set([...relatedProducts].filter(x => !myProducts.has(x)));
-				$scope.relatedProducts = [...difference];
+				$scope.relatedProducts = [...relatedProducts];
+
+
+				//$scope.relatedProducts = [...difference];
+
+				//var difference = new Set([...relatedProducts].filter(x => !myProducts.has(x)));
+				
 			}
 
 			function removeRelatedProduct(product) {
@@ -47,7 +49,7 @@
 			function getMyProducts() {
 				user.getUserProducts($scope.userId)
 					.then(function(response) {
-						for (let x in response) {
+						for (var x in response) {
 							addProduct(x);
 						}
 						$scope.$apply();
@@ -101,16 +103,19 @@
 
 					})
 			}
-
+			init()
 		} else {
-			window.location.href = '#/login';
+			$location.path('login').replace();
+			
 		}
 
+
+		
 
 		//functions
 	}
 
-	ProductsController.$inject = ['$http', '$scope', 'userFactory', 'FBProducts', '$rootScope'];
+	ProductsController.$inject = ['$http', '$scope', 'userFactory', 'FBProducts', '$rootScope', '$window', '$location'];
 
 	angular.module('bconnectApp')
 		.controller('productsController', ProductsController);

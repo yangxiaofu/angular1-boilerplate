@@ -18,7 +18,6 @@
 		function getCategories() {
 			categoryFactory.getCategories()
 				.then(function(response) {
-					let _categories = [];
 					for (var each in response) {
 						$scope.categories.push(each);
 					}

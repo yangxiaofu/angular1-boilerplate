@@ -10,7 +10,7 @@
 			return new Promise(function(resolve, reject) {
 				var url = FBURL.BASE + '/Card';
 				var url_ref = new Firebase(url);
-				console.log(userId);
+				
 				url_ref.orderByChild('userId').equalTo(userId).once("child_added", function(snapshot) {
 
 					if (snapshot.val() === null) {
@@ -30,8 +30,7 @@
 			});
 		}
 
-		factory.updateCard = function(key, ...info){
-
+		factory.updateCard = function(key, info){
 			return new Promise(function(resolve, reject){
 				var url = FBURL.BASE + '/Card/' + key;
 				var url_ref = new Firebase(url);
@@ -39,8 +38,6 @@
 				url_ref.update(...info);
 
 				resolve('You have successfully updated your information');
-
-
 			});
 		}
 

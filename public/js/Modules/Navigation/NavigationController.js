@@ -1,27 +1,33 @@
 (function() {
-	var NavigationController = function(user, $rootScope, $window) {
-		
+	var NavigationController = function($scope, user, $rootScope, $location, $window) {
+		var loggedIn = $window.sessionStorage.loggedIn;
+		$scope.loggedIn = loggedIn;
+
 		function init() {
 			user.isLoggedIn()
 				.then(function(loggedIn) {
 					if (loggedIn === true) {
-						$rootScope.loggedIn = true;
+						$window.sessionStorage.loggedIn = true;
+						$scope.loggedIn = true;
+						$scope.$apply();
 					} else {
-						$rootScope.loggedIn = false;
+						$window.sessionStorage.loggedIn = false;
+						$scope.loggedIn = false;
+						$scope.$apply();
 					}
 				})
 		}
 
 		this.logout = function() {
-			$rootScope.loggedIn = false;
+			$window.sessionStorage = false;
 			user.logout();
-			window.location.href = '/';
+			$location.path('login');
 		}
 
 		init();
 	}
 
-	NavigationController.$inject = ['userFactory', '$rootScope', '$window'];
+	NavigationController.$inject = ['$scope', 'userFactory', '$rootScope', '$location', '$window'];
 
 	angular.module('bconnectApp')
 		.controller('navigationController', NavigationController);

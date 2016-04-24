@@ -45,9 +45,8 @@
 		}
 
 		var addUserCategory = function(category) {
-			myCategorySet.add(category);
-			let difference = new Set([...categorySet].filter(x => !myCategorySet.has(x)))
-			$scope.categoriesArray = [...difference];
+			myCategorySet.add(categorySet);
+			$scope.categoriesArray = [...categorySet];
 			$scope.myCategoriesArray = [...myCategorySet];
 
 		}

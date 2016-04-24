@@ -10,7 +10,7 @@
           <a class="navbar-brand" href="#/">BConnect</a>
     	</div>
      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <button type="button" class="btn btn-default navbar-btn ng-hide" ng-click='navCtrl.logout()' ng-show='loggedIn'>Logout</button>
+        <button type="button" class="btn btn-default navbar-btn ng-hide" ng-click='navCtrl.logout()' ng-hide='!loggedIn'>Logout</button>
       <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search Products">

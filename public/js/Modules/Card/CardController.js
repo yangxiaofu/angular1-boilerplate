@@ -1,6 +1,6 @@
 (function() {
 	var CardController = function(user, $window, $scope, cardFactory) {
-		userId = $window.sessionStorage.currentUser;
+		userId = $window.sessionStorage.uid;
 		$scope.cardKey = null;
 		$scope.cardName = null;
 		$scope.cardCompany = null;

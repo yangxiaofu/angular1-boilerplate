@@ -1,5 +1,5 @@
 (function() {
-	var LoginController = function($scope, user, $rootScope, $window) {
+	var LoginController = function($scope, user, $window, appSettings, $location) {
 		$scope.email = null;
 		$scope.password = null;
 		$scope.message = null;
@@ -8,20 +8,16 @@
 		data = {};
 
 		$scope.login = function() {
-
 			if (($scope.email !== null) && ($scope.password !== null)) {
 				user.login($scope.email, $scope.password)
 					.then(function(response) {
-						$window.sessionStorage.currentUser = response.uid;
-						$window.sessionStorage.loggedIn = true;
-						$rootScope.loggedIn = true;
-						window.location.href = "/#/products";
+						$location.path('products');
+						$scope.$apply();	
 					})
 					.catch(function(error) {
 						if (error.code = 'INVALID_EMAIL'){
 							$scope.error = 'You have entered an invalid email address';
 						}
-						
 						$scope.$apply();
 					});
 			} else {
@@ -30,7 +26,7 @@
 		}
 	}
 
-	LoginController.$inject = ['$scope', 'userFactory', '$rootScope', '$window'];
+	LoginController.$inject = ['$scope', 'userFactory', '$window', 'appSettings', '$location'];
 
 	angular.module('bconnectApp')
 		.controller('loginController', LoginController);

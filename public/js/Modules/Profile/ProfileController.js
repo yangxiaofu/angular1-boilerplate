@@ -1,12 +1,14 @@
 (function() {
-	var ProfileController = function($rootScope, $scope, user, $window) {
-		if ($rootScope.loggedIn === true) {
+	var ProfileController = function($scope, user, $window, $rootScope, $location) {
+		var loggedIn = $rootScope.loggedIn;
+
+		if (loggedIn === true) {
 			$scope.activeCard = 'active';
 			$scope.activeSettings = null;
 			$scope.hideCard = false;
 			$scope.hideSettings = true;
 			
-			userId = $window.sessionStorage.currentUser;
+			userId = $window.sessionStorage.uid;
 
 			$scope.setActiveCard = function() {
 				$scope.activeCard = 'active';
@@ -21,12 +23,11 @@
 				$scope.hideSettings = false;
 			}
 		} else {
-			
-			window.location.href = '/';
+			$location.path('login');
 		}
 	}
 
-	ProfileController.$inject = ['$rootScope', '$scope', 'userFactory', '$window'];
+	ProfileController.$inject = ['$scope', 'userFactory', '$window', '$rootScope', '$location'];
 
 	angular.module('bconnectApp')
 		.controller('profileController', ProfileController);

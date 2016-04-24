@@ -6,6 +6,8 @@
 			}
 		})
 
+		
+
 	app.config(function($routeProvider) {
 		//Routes go here
 		$routeProvider
