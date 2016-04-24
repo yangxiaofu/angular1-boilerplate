@@ -36,7 +36,7 @@
 				templateUrl: 'js/Modules/Admin/cook/cook.html'
 			})
 			.when('/admin/bosswork', {
-				controller: 'categoryController',
+				controller: 'bossWorkController',
 				templateUrl: 'js/Modules/Admin/bosswork/bosswork.html'
 			})
 			.when('/profile', {

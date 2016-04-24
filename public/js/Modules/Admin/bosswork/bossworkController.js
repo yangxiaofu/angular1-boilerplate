@@ -106,5 +106,5 @@
 	CategoryController.$inject = ['$scope', '$http', 'categoryFactory'];
 
 	angular.module('bconnectApp')
-		.controller('categoryController', CategoryController);
+		.controller('bossWorkController', CategoryController);
 }())
