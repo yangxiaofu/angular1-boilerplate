@@ -8,6 +8,7 @@
 
 		factory.getCard = function(userId) {
 			return new Promise(function(resolve, reject) {
+				
 				var url = FBURL.BASE + '/Card';
 				var url_ref = new Firebase(url);
 				
@@ -33,9 +34,7 @@
 			return new Promise(function(resolve, reject){
 				var url = FBURL.BASE + '/Card/' + key;
 				var url_ref = new Firebase(url);
-
 				url_ref.update(info);
-
 				resolve('You have successfully updated your information');
 			});
 		}

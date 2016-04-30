@@ -63,11 +63,12 @@
 			var ref = new Firebase(url);
 
 			return new Promise(function(resolve, reject) {
-				var loggedIn = ref.getAuth();
-				if (loggedIn !== null) {
-					resolve(true);
+				var authData = ref.getAuth();
+
+				if (authData !== null) {
+					resolve(authData);
 				} else {
-					resolve(false);
+					resolve(null);
 				}
 			})
 		}
@@ -324,11 +325,12 @@
 				ref.authWithPassword(data, function(error, authData) {
 					if (error) {
 						reject(error);
-
 					} else {
 						$rootScope.loggedIn = true;
 						$window.sessionStorage.loggedIn = true;
-						$window.sessionStorage.uid = authData.uid;
+						$window.sessionStorage.uid = authData.auth.uid;
+						$window.sessionStorage.profileImageURL = authData.profileImageURL;
+						
 						resolve('Success');
 					}
 				})

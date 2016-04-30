@@ -8,6 +8,7 @@
 		$scope.userProducts = [];
 		$scope.errorMessage = null;
 		$scope.hideAlert = true;
+		$scope.profileImageURL = $window.sessionStorage.profileImageUrl;
 
 		$scope.openProductDetails = function(userId) {
 			$scope.userProducts = [];
@@ -35,10 +36,21 @@
 					for (var user in users) {
 						userFactory.getCard(user)
 							.then(function(card) {
-								toggleAlert(null, true);
-								$scope.cards.push(card);
-								$scope.hidden = false;
-								$scope.$apply();
+								card.emailHash = calcMD5(card.Email);
+
+								userFactory.getProducts(card.userId)
+									.then(function(products) {
+										card.products = products;
+										
+										toggleAlert(null, true);
+										$scope.cards.push(card);
+										$scope.hidden = false;
+										$scope.$apply();
+									})
+									.catch(function(err) {
+										console.log(err);
+									})
+
 							})
 							.catch(function(err) {
 								toggleAlert(err, false);
@@ -58,7 +70,7 @@
 			}
 		}
 
-		function addToSearchHistory(keyword){
+		function addToSearchHistory(keyword) {
 			searchHistoryFactory.addToSearchHistory(keyword)
 		}
 
@@ -68,7 +80,7 @@
 			} else {
 				$scope.hideAlert = false;
 				$scope.errorMessage = err;
-				
+
 			}
 			$scope.$apply();
 

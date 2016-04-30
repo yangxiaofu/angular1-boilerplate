@@ -1,17 +1,22 @@
 /*Search View*/
-#searchBar{
-  margin-top: 50px;
+body{
+  background-color: #e6e6e6;
 }
+
+#email-buttons{
+  margin-top: 10px;
+}
+
 #list-of-users{
   padding: 25px 0 10px 0;
 }
+#main-background{
+
+  background-color: #e6e6e6;
+  height: 100%;
+}
 
 /*PRODUCT VIEW*/
-
-#nav-logo{
-	width: 25px;
-	height: 25px;
-}
 
 #relatedProductsList{
 	margin-top: 25px;
@@ -27,9 +32,17 @@
 }
 
 /*NAVIGATION*/
+
+#nav-bar{
+  background-color: #ffffff;
+}
+
 img.logo{
-  height: 25px;
-  width: 25pxs;
+  position: relative;
+  top: -5px;
+  height: 30px;
+  width: 30px;
+  float: left;
 }
 
 

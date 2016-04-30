@@ -1,5 +1,4 @@
 (function() {
-
 	angular.module('bconnectApp')
 		.directive('navBar', function() {
 			return {

@@ -8,6 +8,7 @@
 		$scope.cardEmail = null;
 		$scope.cardPhoneNumber = null;
 		$scope.hideAlert = true;
+		$scope.cardWebsite = null;
 
 		function init() {
 			getCard(userId);
@@ -16,15 +17,14 @@
 		function getCard(userId) {
 			cardFactory.getCard(userId)
 				.then(function(card) {
-					console.log(card);
 					$scope.cardKey = card.key;
 					$scope.cardName = card.info.Name;
 					$scope.cardCompany = card.info.Company;
 					$scope.cardPosition = card.info.Headline;
 					$scope.cardEmail = card.info.Email;
 					$scope.cardPhoneNumber = card.info.PhoneNumber;
+					$scope.cardWebsite = card.info.Website;
 					$scope.$apply();
-					
 				})
 				.catch(function(error) {
 					console.log(error);
@@ -38,7 +38,8 @@
 				Company: $scope.cardCompany,
 				Headline: $scope.cardPosition, 
 				Email: $scope.cardEmail,
-				PhoneNumber: $scope.cardPhoneNumber
+				PhoneNumber: $scope.cardPhoneNumber,
+				Website: $scope.cardWebsite
 			}
 
 			cardFactory.updateCard($scope.cardKey, info)	

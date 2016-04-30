@@ -6,9 +6,11 @@
 
 		function init() {
 			user.isLoggedIn()
-				.then(function(loggedIn) {
-					if (loggedIn === true) {
+				.then(function(authData) {
+					if (authData !== null) {
 						$window.sessionStorage.loggedIn = true;
+						$window.sessionStorage.uid = authData.auth.uid;
+						$window.sessionStorage.profileImageUrl = authData.password.profileImageURL;
 						$scope.loggedIn = true;
 						$scope.$apply();
 					} else {
