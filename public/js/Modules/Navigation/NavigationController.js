@@ -2,6 +2,7 @@
 	var NavigationController = function($scope, user, $rootScope, $location, $window) {
 		var loggedIn = $window.sessionStorage.loggedIn;
 		$scope.loggedIn = loggedIn;
+		$scope.keyword = null;
 
 		function init() {
 			user.isLoggedIn()
@@ -22,6 +23,11 @@
 			$window.sessionStorage = false;
 			user.logout();
 			$location.path('login');
+		}
+
+		this.search = function(keyword){
+			$scope.keyword = '';
+			$location.path('search/' + keyword).replace();
 		}
 
 		init();

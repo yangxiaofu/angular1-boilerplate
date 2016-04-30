@@ -5,6 +5,32 @@
 
 		var factory = {};
 
+		factory.getCard = function(userId) {
+			var url = FBURL.BASE + '/Users/' + userId + '/Card';
+			var url_ref = new Firebase(url);
+
+			return new Promise(function(resolve, reject) {
+				url_ref.once('child_added', function(snapshot) {
+
+					var cardId = snapshot.key();
+
+					var card_url = FBURL.BASE + 'Card/' + cardId;
+					
+					var card_url_ref = new Firebase(card_url);
+
+					card_url_ref.once('value', function(card_snapshot){
+
+						var card = card_snapshot.val();
+						resolve(card);	
+					})
+
+					
+
+				});
+			})
+
+		}
+
 		factory.getUserId = function() {
 			var url = FBURL.BASE;
 			var ref = new Firebase(url);
@@ -267,7 +293,7 @@
 		}
 
 		factory.login = function(email, password) {
-			return new Promise(function(resolve, reject){
+			return new Promise(function(resolve, reject) {
 				var data = {
 					email: email,
 					password: password
@@ -278,7 +304,7 @@
 				ref.authWithPassword(data, function(error, authData) {
 					if (error) {
 						reject(error);
-							
+
 					} else {
 						$rootScope.loggedIn = true;
 						$window.sessionStorage.loggedIn = true;

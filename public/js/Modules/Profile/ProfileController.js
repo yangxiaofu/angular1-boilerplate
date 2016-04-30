@@ -4,8 +4,10 @@
 
 		if (loggedIn === true) {
 			$scope.activeCard = 'active';
+			$scope.activeProducts = null;
 			$scope.activeSettings = null;
 			$scope.hideCard = false;
+			$scope.hideProducts = true;
 			$scope.hideSettings = true;
 			
 			userId = $window.sessionStorage.uid;

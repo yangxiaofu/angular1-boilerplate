@@ -45,6 +45,14 @@
 				controller: 'searchController', 
 				templateUrl: 'js/Modules/Search/search.html'
 			})
+			.when('/search/:keyword', {
+				controller: 'searchController', 
+				templateUrl: 'js/Modules/Search/search.html'
+			})
+			.when('/test', {
+				controller: 'testController', 
+				templateUrl: 'js/Modules/Test/test.html'
+			})
 			.otherwise({redirect: '/'})
 	});
 

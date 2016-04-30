@@ -13,9 +13,9 @@
         <button type="button" class="btn btn-default navbar-btn ng-hide" ng-click='navCtrl.logout()' ng-hide='!loggedIn'>Logout</button>
       <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search Products">
+          <input type="text" class="form-control" ng-model="navCtrl.keyword" placeholder="Search Products" capitalize-first/>
         </div>
-        <button type="submit" class="btn btn-danger">Search</button>
+        <button type="submit" class="btn btn-danger" ng-click="navCtrl.search(navCtrl.keyword)">Search</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
@@ -27,6 +27,5 @@
           </ul>
         </li>
       </ul>
-
     </div><!-- /.navbar-collapse -->
 </nav>

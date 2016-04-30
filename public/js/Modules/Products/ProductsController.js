@@ -19,12 +19,6 @@
 			function addRelatedProduct(product) {
 				relatedProducts.add(product);
 				$scope.relatedProducts = [...relatedProducts];
-
-
-				//$scope.relatedProducts = [...difference];
-
-				//var difference = new Set([...relatedProducts].filter(x => !myProducts.has(x)));
-				
 			}
 
 			function removeRelatedProduct(product) {
