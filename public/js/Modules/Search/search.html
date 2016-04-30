@@ -1,6 +1,9 @@
  <div class="container">
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2" id="searchBar">
+			<div class="alert alert-danger" ng-hide="hideAlert">
+				{{errorMessage}}
+			</div>
 			<form>
 				<div class="form-group">
 					<label for="searchInput" class="sr-only">Search</label>
@@ -15,21 +18,30 @@
 		</div>
 	</div>
 	<div class="row" id="list-of-users">
-		<div class="col-md-10 col-md-offset-1" ng-hide="hidden">
+		<div class="col-md-8" ng-hide="hidden">
 				<table class="table">
 					<tr>
 						<th></th>
 						<th>Name</th>
 						<th>Position</th>
 						<th>Email</th>
+						<th>Products</th>
 					</tr>
 					<tr ng-repeat="card in cards">
 						<td><input type="checkbox" ng-click="addToEmailList(card.Email)" aria-label="..."></td>
 						<td>{{card.Name}}</td>
 						<td>{{card.Headline}}</td>
 						<td>{{card.Email}}</td>
+						<td><span class="glyphicon glyphicon-chevron-right" ng-click="openProductDetails(card.userId)"></span></td>
 					</tr>
 				</table>
+		</div>
+		<div class="col-md-4">
+			<ul class="list-group">
+				<li class="list-group-item" ng-repeat="product in userProducts">
+					{{product}}
+				</li>
+			</ul>
 		</div>
 	</div>
 </div>

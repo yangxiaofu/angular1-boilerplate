@@ -11,6 +11,7 @@
     	</div>
      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <button type="button" class="btn btn-default navbar-btn ng-hide" ng-click='navCtrl.logout()' ng-hide='!loggedIn'>Logout</button>
+        <button type="button" class="btn btn-default btn-link navbar-btn ng-show" ng-show='!loggedIn'><a href="#/login">Login</a></button>
       <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
           <input type="text" class="form-control" ng-model="navCtrl.keyword" placeholder="Search Products" capitalize-first/>
@@ -18,10 +19,12 @@
         <button type="submit" class="btn btn-danger" ng-click="navCtrl.search(navCtrl.keyword)">Search</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
+        <li class="dropdown" ng-hide="!loggedIn">
           <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Welcome<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#/profile">Profile</a></li>
+            <li><a href="#/products">Products</a></li>
+            <li><a href="#/settings">Settings</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#" ng-hide="!loggedIn" ng-click="navCtrl.logout()">Logout</a></li>
           </ul>

@@ -26,7 +26,7 @@
 					if (users !== null){
 						resolve(users);
 					}else{
-						var err = "No users existed";
+						var err = "No Users Exist for this Product";
 						reject(err);
 					}
 					

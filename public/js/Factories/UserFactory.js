@@ -5,6 +5,26 @@
 
 		var factory = {};
 
+		factory.getProducts = function(userId){
+			var url = FBURL.BASE + '/Users/' + userId + '/Products';
+			var url_ref = new Firebase(url);
+
+			return new Promise(function(resolve, reject){
+				url_ref.once('value', function(snapshot){
+					var products = snapshot.val();
+
+					if (products !== null){
+						resolve(products);
+					}else{
+						var err = {};
+						err.code = "_NO_PRODUCTS";
+						err.message = "The user contains no products";
+						reject(err);
+					}
+				})
+			})
+		}
+
 		factory.getCard = function(userId) {
 			var url = FBURL.BASE + '/Users/' + userId + '/Card';
 			var url_ref = new Firebase(url);

@@ -12,7 +12,7 @@
 			if (($scope.email !== null) && ($scope.password !== null)) {
 				user.login($scope.email, $scope.password)
 					.then(function(response) {
-						$location.path('products');
+						$location.path('search');
 						$scope.$apply();	
 					})
 					.catch(function(error) {
