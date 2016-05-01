@@ -33,10 +33,19 @@
 		}
 
 		$scope.search = function(keyword) {
-			$scope.cardsCol1 = [];
-			$scope.cardsCol2 = [];
-			$scope.cardsCol3 = [];
-
+			$scope.cardsCol1.forEach(function(each){
+				var index = $scope.cardsCol1.indexOf(each);
+				$scope.cardsCol1.splice(index, 1);
+			});
+			$scope.cardsCol2.forEach(function(each){
+				var index = $scope.cardsCol1.indexOf(each);
+				$scope.cardsCol1.splice(index, 1);
+			});
+			$scope.cardsCol3.forEach(function(each){
+				var index = $scope.cardsCol1.indexOf(each);
+				$scope.cardsCol1.splice(index, 1);
+			});
+			
 			addToSearchHistory(keyword);
 
 			searchFactory.findUsers(keyword)

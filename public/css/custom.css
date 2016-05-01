@@ -1,3 +1,25 @@
+button.relatedProductsButton.ng-enter{
+  animation: fadeIn 0.2s;
+}
+button.relatedProductsButton.ng-leave{
+  animation: fadeOut 0.2s;
+}
+
+li.myProduct.ng-enter{
+  animation: bounceInRight 0.2s;
+}
+
+li.myProduct.ng-leave{
+  animation: bounceOutRight 0.2s;
+}
+
+div.myCard.ng-enter{
+  animation: fadeInUp 0.5s;
+}
+div.myCard.ng-leave{
+  animation: fadeOutDown 0.5s;
+}
+
 /*Search View*/
 body{
   background-color: #e6e6e6;
