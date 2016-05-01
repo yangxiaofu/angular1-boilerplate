@@ -1,5 +1,5 @@
 (function() {
-	var app = angular.module('bconnectApp', ['firebase', 'ngRoute'])
+	var app = angular.module('bconnectApp', ['firebase', 'ngRoute', 'inputDropdown'])
 		.run(function($rootScope) {
 			$rootScope.FBURL = {
 				BASE: "https://bconnectto.firebaseio.com/"

@@ -4,7 +4,10 @@
 			<div id="keyword-entry">
 				<form class="form-inline">
 					<label for="keyword">Add Products to your portfolio</label>
-					<input type="text" class="form-control" ng-model="productToAdd" id="keyword" placeholder="Enter a Product Name" capitalize-first/>
+					<input list="keywords" type="text" class="form-control" ng-model="productToAdd" id="keyword" placeholder="Enter a Product Name" capitalize-first/>
+						<datalist id="keywords">
+							<option ng-repeat="product in initProducts" value="{{product}}">
+						</datalist>
 
 					<button type="submit" ng-click="addProductToUser(productToAdd)" class="btn btn-primary">Add</button>
 				</form>

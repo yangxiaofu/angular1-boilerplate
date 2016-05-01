@@ -8,12 +8,28 @@
 			$scope.productToAdd = null;
 			$scope.myProducts = [];
 			$scope.relatedProducts = [];
+			$scope.initProducts = [];
 
 			var myProducts = new Set();
 			var relatedProducts = new Set();
 
 			function init() {
-				getMyProducts();
+				getMyProducts()
+
+				getProductList();
+			}
+
+
+			function getProductList(){
+				productFactory.getProducts()
+					.then(function(products){
+						for (var product in products){
+							$scope.initProducts.push(product);
+						}
+
+						$scope.$apply();
+					})
+
 			}
 
 			function addRelatedProduct(product) {

@@ -3,6 +3,9 @@ body{
   background-color: #e6e6e6;
 }
 
+option{
+  background-color: red;
+}
 #email-buttons{
   margin-top: 10px;
 }
@@ -11,9 +14,9 @@ body{
   padding: 25px 0 10px 0;
 }
 #main-background{
-
   background-color: #e6e6e6;
   height: 100%;
+  min-height: 1000px;
 }
 
 /*PRODUCT VIEW*/
@@ -48,8 +51,6 @@ img.logo{
 
 /*Footer*/
 footer {
-  position: absolute;
-  bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 60px;

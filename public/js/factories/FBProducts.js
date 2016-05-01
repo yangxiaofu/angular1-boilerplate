@@ -232,6 +232,20 @@
 			updateUser();
 		}
 
+		factory.getProducts = function(){
+			return new Promise(function(resolve, reject){
+				var url = FBURL.BASE + '/ProductIndex/';
+				var url_ref = new Firebase(url);
+
+				url_ref.on('value', function(snapshot){
+
+					var products = snapshot.val();
+					resolve(products);
+					
+				});
+			})
+		}
+
 		factory.getRelatedProducts = function(product) {
 			return new Promise(function(resolve, reject) {
 				var product_url = FBURL.BASE + '/ProductIndex/' + product + '/RelatedProducts';

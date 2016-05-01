@@ -1,26 +1,28 @@
- <div class="container-fluid" id="main-background">
+  <div class="container" id="main-background">
 	<div class="row">
 		<div class="col-md-10 col-sm-10 col-xs-9">
-			<div class="alert alert-danger" ng-hide="hideAlert">
-				{{errorMessage}}
-			</div>
+			
 			<form>
 				<div class="form-group">
 					<label for="searchInput" class="sr-only">Search</label>
-					<input type="text" ng-model="keyword" class="form-control" id="searchInput" placeholder="Search" capitalize-first />
+					<input list="keywords" type="text" ng-model="keyword" class="form-control" id="searchInput" placeholder="Search" capitalize-first />
+					<datalist id="keywords">
+						<option ng-repeat='product in initProducts' value="{{product}}">
+					</datalist>
 				</div>
 			</form>
+			<div class="alert alert-danger" ng-hide="hideAlert">
+				{{errorMessage}}
+			</div>
 		</div>
 		<div class="col-md-2 col-sm-2 col-xs-2">
 			<button type="submit" ng-click="search(keyword)" class="btn btn-primary">Search</button>
 		</div>
 	</div>
-	<div class="row">
 
-	</div>
 	<div class="row">
-		<div class="col-md-4 col-lg-4 col-sm-6 col-xs-12" id="userCard" ng-repeat="card in cards">
-			<div class="panel panel-default">
+		<div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+			<div class="panel panel-default" ng-repeat="card in cardsCol1">
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-3 col-sm-3 col-lg-3 col-sx-3">
@@ -34,30 +36,100 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<strong>Products</strong>
-							<ul>
-								<li ng-repeat="(key, value) in card.products">
-									{{key}}
+							
+							<ul class="list-group">
+								<li class="list-group-item" ng-repeat="(key, value) in card.products">
+									<a href="#/search/{{key}}">{{key}}</a>
 								</li>
 							</ul>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<strong>Email</strong>
-							<small>{{card.Email}}</small>
+							<strong>Website</strong>
+							<small><a href="http://{{card.Website}}" target="_blank">{{card.Website}}</a></small>
+						</div>
+					</div>
+					<div class="row" id="email-buttons">
+						<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+							<button type="submit" class="btn btn-primary btn-block">Send a Message</button>
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+							<button type="submit" class="btn btn-danger btn-block">Add to email list</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 col-lg-4 col-sm-6 col-xs-12" >
+			<div class="panel panel-default" ng-repeat="card2 in cardsCol2">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-3 col-sm-3 col-lg-3 col-sx-3">
+							<img alt="{{card2.Company}}" src="http://gravatar.com/avatar/{{card2.emailHash}}" class="img-rounded" />
+						</div>
+						<div class="col-md-9 col-sm-9 col-lg-9 col-xs-9">
+							<p>{{card2.Name}}</p>
+							<p><small>{{card2.Company}}</small></p>
+							<p>{{card2.Headline}}</p>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-						 	<strong>Phone Number</strong>
-						 	<small>{{card.PhoneNumber}}</small>
+							
+							<ul class="list-group">
+								<li class="list-group-item" ng-repeat="(key, value) in card2.products">
+									<a href="#/search/{{key}}">{{key}}</a>
+								</li>
+							</ul>
 						</div>
 					</div>
+				
 					<div class="row">
 						<div class="col-md-12">
 							<strong>Website</strong>
-							<small>{{card.Website}}</small>
+							<small><a href="http://{{card2.Website}}" target="_blank">{{card2.Website}}</a></small>
+						</div>
+					</div>
+					<div class="row" id="email-buttons">
+						<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+							<button type="submit" class="btn btn-primary btn-block">Send a Message</button>
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+							<button type="submit" class="btn btn-danger btn-block">Add to email list</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+			<div class="panel panel-default" ng-repeat="card3 in cardsCol3">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-3 col-sm-3 col-lg-3 col-sx-3">
+							<img alt="{{card3.Company}}" src="http://gravatar.com/avatar/{{card3.emailHash}}" class="img-rounded" />
+						</div>
+						<div class="col-md-9 col-sm-9 col-lg-9 col-xs-9">
+							<p>{{card3.Name}}</p>
+							<p><small>{{card3.Company}}</small></p>
+							<p>{{card3.Headline}}</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+						
+							<ul class="list-group">
+								<li class="list-group-item" ng-repeat="(key, value) in card3.products">
+									<a href="#/search/{{key}}">{{key}}</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12">
+							<strong>Website</strong>
+							<small><a href="http://{{card3.Website}}" target="_blank">{{card3.Website}}</a></small>
 						</div>
 					</div>
 					<div class="row" id="email-buttons">
@@ -72,5 +144,4 @@
 			</div>
 		</div>
 	</div>
-
 </div>
