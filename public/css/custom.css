@@ -1,3 +1,7 @@
+tr.category-items.ng-enter{
+  animation: fadeIn 0.2s;
+}
+
 .view.ng-enter{
   animation: fadeIn 0.2s;
 }

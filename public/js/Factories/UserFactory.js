@@ -2,20 +2,21 @@
 	var LoginFactory = function($rootScope, $window, searchFactory) {
 		var FBURL = {};
 		FBURL.BASE = $rootScope.FBURL.BASE;
+		var USERS = 'Users';
 
 		var factory = {};
 
-		factory.getProducts = function(userId){
+		factory.getProducts = function(userId) {
 			var url = FBURL.BASE + '/Users/' + userId + '/Products';
 			var url_ref = new Firebase(url);
 
-			return new Promise(function(resolve, reject){
-				url_ref.once('value', function(snapshot){
+			return new Promise(function(resolve, reject) {
+				url_ref.once('value', function(snapshot) {
 					var products = snapshot.val();
 
-					if (products !== null){
+					if (products !== null) {
 						resolve(products);
-					}else{
+					} else {
 						var err = {};
 						err.code = "_NO_PRODUCTS";
 						err.message = "The user contains no products";
@@ -35,17 +36,14 @@
 					var cardId = snapshot.key();
 
 					var card_url = FBURL.BASE + 'Card/' + cardId;
-					
+
 					var card_url_ref = new Firebase(card_url);
 
-					card_url_ref.once('value', function(card_snapshot){
+					card_url_ref.once('value', function(card_snapshot) {
 
 						var card = card_snapshot.val();
-						resolve(card);	
+						resolve(card);
 					})
-
-					
-
 				});
 			})
 
@@ -71,6 +69,20 @@
 					resolve(null);
 				}
 			})
+		}
+
+		factory.isAdmin = function(userId) {
+			var url = FBURL.BASE + USERS + '/' + userId + '/isAdmin';
+			var url_ref = new Firebase(url);
+
+			return new Promise(function(resolve, reject) {
+				url_ref.once('value', function(snapshot) {
+					var isAdmin = snapshot.val();
+					resolve(isAdmin);
+
+				})
+			})
+
 		}
 
 		factory.makeAdmin = function(email) {
@@ -330,7 +342,7 @@
 						$window.sessionStorage.loggedIn = true;
 						$window.sessionStorage.uid = authData.auth.uid;
 						$window.sessionStorage.profileImageURL = authData.profileImageURL;
-						
+
 						resolve('Success');
 					}
 				})

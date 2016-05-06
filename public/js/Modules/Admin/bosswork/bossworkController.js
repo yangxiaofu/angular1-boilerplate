@@ -1,5 +1,5 @@
 (function() {
-	var CategoryController = function($scope, $http, categoryFactory) {
+	var CategoryController = function($scope, $http, categoryFactory, user, $location) {
 		$scope.name = null;
 		$scope.categories = [];
 		$scope.productsInCategory = [];
@@ -12,6 +12,30 @@
 		init();
 		//Load anything on the page that needs to be loaded. 
 		function init() {
+			user.isLoggedIn()
+				.then(function(loggedIn){
+					if (loggedIn !== null){
+						var userId = loggedIn.uid;
+						user.isAdmin(userId)
+							.then(function(isAdmin){
+								if (isAdmin) {
+
+								}else{
+									$location.path('/').replace();
+									$scope.$apply();
+								}
+							})
+							.catch(function(err){
+								console.log(`Error: ${err}`);
+							})
+					}else{
+						$location.path('login').replace();
+						$scope.$apply();
+					}
+					
+				})
+
+			
 			getCategories()
 		}
 
@@ -103,7 +127,7 @@
 		}
 	};
 
-	CategoryController.$inject = ['$scope', '$http', 'categoryFactory'];
+	CategoryController.$inject = ['$scope', '$http', 'categoryFactory', 'userFactory', '$location'];
 
 	angular.module('bconnectApp')
 		.controller('bossWorkController', CategoryController);

@@ -12,15 +12,15 @@
 				<div class="panel-heading">My Categories</div>
 				<div class="panel-body">
 					<ul class="list-group">
-						<li class="list-group-item" ng-repeat="myCategory in myCategoriesArray">{{myCategory}}<span class="badge cursor-pointer" ng-click="removeCategoryFromUser(myCategory, $index)">x</span></li>
+						<li class="list-group-item category-items" ng-repeat="myCategory in myCategoriesArray">{{myCategory}}<span class="badge cursor-pointer" ng-click="removeCategoryFromUser(myCategory, $index)">x</span></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-2 col-md-offset-8">
-			<button class="btn btn-link"><a href="#/products">Continue</a></button>
+		<div class="col-md-2">
+			<button class="btn btn-link btn-block"><a href="#/products">Continue</a></button>
 		</div>
 	</div>
 </div>
