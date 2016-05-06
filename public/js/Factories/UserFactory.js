@@ -213,10 +213,7 @@
 									resolve(products);
 								})
 							}
-
 						});
-
-
 					}
 				}
 
