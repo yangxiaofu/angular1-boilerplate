@@ -64,21 +64,24 @@
 		$scope.search = function(keyword) {
 
 			if (keyword !== undefined) {
-				console.log(`Cards Column 1: ${$scope.cardsCol1}`);
-				console.log(`Cards Column 2: ${$scope.cardsCol2}`);
+
 				$scope.cardsCol1.forEach(function(each) {
 					var index = $scope.cardsCol1.indexOf(each);
-					console.log(index);
+					
 					$scope.cardsCol1.splice(index, 1);
 				});
 				$scope.cardsCol2.forEach(function(each) {
-					console.log(`Splicing Column 2: ${index}`);
+					
 					var index = $scope.cardsCol1.indexOf(each);
 					$scope.cardsCol2.splice(index, 1);
+					
 				});
+
 				$scope.cardsCol3.forEach(function(each) {
+
 					var index = $scope.cardsCol1.indexOf(each);
 					$scope.cardsCol3.splice(index, 1);
+
 				});
 
 				addToSearchHistory(keyword);
