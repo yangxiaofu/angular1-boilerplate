@@ -1,5 +1,5 @@
 (function() {
-	var FBProducts = function($rootScope, FBUser) {
+	var FBProducts = function($rootScope, FBUser, searchFactory) {
 		var FBURL = {};
 		FBURL.BASE = $rootScope.FBURL.BASE;
 
@@ -280,6 +280,8 @@
 
 				url1_ref.remove();
 
+				searchFactory.removeUser(product, userId);
+
 				//TODO: - DeIndex Product is important
 
 				resolve('Success Removing');
@@ -293,8 +295,12 @@
 				[keyword]: true
 			}
 
-			//GET THE CATEGORIES OF THE USER
+			
+			//Indexes teh keyword of phrase into the search index in order to find the user. 
+			searchFactory.addString(keyword, userId);
 
+
+			//Grabs the cateogry of the user and adds it into the database;
 			var url = FBURL.BASE + '/Users/' + userId + '/Categories';
 			var url_ref = new Firebase(url);
 			return new Promise(function(resolve, reject) {
@@ -375,7 +381,7 @@
 
 	}
 
-	FBProducts.$inject = ['$rootScope', 'userFactory'];
+	FBProducts.$inject = ['$rootScope', 'userFactory', 'searchFactory'];
 
 	angular.module('bconnectApp')
 		.factory('FBProducts', FBProducts);

@@ -1,5 +1,5 @@
 (function() {
-	var LoginFactory = function($rootScope, $window) {
+	var LoginFactory = function($rootScope, $window, searchFactory) {
 		var FBURL = {};
 		FBURL.BASE = $rootScope.FBURL.BASE;
 
@@ -234,6 +234,9 @@
 					//Saves the Card
 					var uid = userData.uid;
 
+					//Adds the company information into the Search Index
+					searchFactory.addString(data.company, uid);
+
 					var key = {};
 
 					var cardData = {
@@ -350,7 +353,7 @@
 		return factory;
 	}
 
-	LoginFactory.$inject = ['$rootScope', '$window'];
+	LoginFactory.$inject = ['$rootScope', '$window', 'searchFactory'];
 
 	angular.module('bconnectApp')
 		.factory('userFactory', LoginFactory);

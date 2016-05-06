@@ -1,3 +1,7 @@
+.view.ng-enter{
+  animation: fadeIn 0.2s;
+}
+
 button.relatedProductsButton.ng-enter{
   animation: fadeIn 0.2s;
 }
@@ -6,11 +10,11 @@ button.relatedProductsButton.ng-leave{
 }
 
 li.myProduct.ng-enter{
-  animation: bounceInRight 0.2s;
+  animation: fadeIn 0.3s;
 }
 
 li.myProduct.ng-leave{
-  animation: bounceOutRight 0.2s;
+  animation: fadeOut 0.3s;
 }
 
 div.myCard.ng-enter{
@@ -21,9 +25,6 @@ div.myCard.ng-leave{
 }
 
 /*Search View*/
-body{
-  background-color: #e6e6e6;
-}
 
 option{
   background-color: red;
@@ -36,7 +37,6 @@ option{
   padding: 25px 0 10px 0;
 }
 #main-background{
-  background-color: #e6e6e6;
   height: 100%;
   min-height: 1000px;
 }

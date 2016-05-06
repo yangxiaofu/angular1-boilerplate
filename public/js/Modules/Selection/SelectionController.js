@@ -1,5 +1,5 @@
 (function() {
-	var SelectionController = function($http, $scope, categoryFactory, userFactory, appSettings, $location, arrayFactory) {
+	var SelectionController = function($http, $scope, categoryFactory, userFactory, appSettings, $location, arrayFactory, searchFactory) {
 		var categorySet = new Set();
 		var myCategorySet = new Set();
 		var categoriesArray = [];
@@ -18,7 +18,7 @@
 
 			categoryFactory.addCategoryToUser(category, $scope.userId)
 				.then(function(response) {
-					console.log('Added Category to User');
+					searchFactory.addString(category, $scope.userId);
 				})
 		}
 
@@ -30,6 +30,7 @@
 
 			categoryFactory.removeCategoryFromUser(category, $scope.userId)
 				.then(function(resolve) {
+					searchFactory.removeString(category, $scope.userId);
 					console.log('Removed Category from user');
 				})
 		}
@@ -86,7 +87,7 @@
 
 	}
 
-	SelectionController.$inject = ['$http', '$scope', 'categoryFactory', 'userFactory', 'appSettings', '$location', 'arrayFactory'];
+	SelectionController.$inject = ['$http', '$scope', 'categoryFactory', 'userFactory', 'appSettings', '$location', 'arrayFactory', 'searchFactory'];
 
 	angular.module('bconnectApp')
 		.controller('selectionController', SelectionController);

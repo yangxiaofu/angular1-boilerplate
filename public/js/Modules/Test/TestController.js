@@ -6,6 +6,7 @@
 		function init() {
 			string = "Non-Metallic Enclosures";
 			searchFactory.addString(string);
+			//searchFactory.removeUser(string);
 		}
 
 	}

@@ -24,7 +24,6 @@
 					for (var product in products) {
 						$scope.userProducts.push(product);
 					}
-
 					$scope.$apply();
 				})
 				.catch(function(err) {
@@ -32,38 +31,72 @@
 				})
 		}
 
-		$scope.search = function(keyword) {
-			$scope.cardsCol1.forEach(function(each){
-				var index = $scope.cardsCol1.indexOf(each);
-				$scope.cardsCol1.splice(index, 1);
-			});
-			$scope.cardsCol2.forEach(function(each){
-				var index = $scope.cardsCol1.indexOf(each);
-				$scope.cardsCol1.splice(index, 1);
-			});
-			$scope.cardsCol3.forEach(function(each){
-				var index = $scope.cardsCol1.indexOf(each);
-				$scope.cardsCol1.splice(index, 1);
-			});
-			
-			addToSearchHistory(keyword);
-
-			searchFactory.findUsers(keyword)
-				.then(function(users) {
-					var column = 1;
-					for (var user in users) {
-						sortCard(user, column);
-
-						if (column === 3) {
-							column = 1;
-						} else {
-							column = column + 1;
+		$scope.openDialog = function() {
+			bootbox.dialog({
+				message: "I am a custom dialog",
+				title: "Custom title",
+				buttons: {
+					success: {
+						label: "Success!",
+						className: "btn-success",
+						callback: function() {
+							Example.show("great success");
+						}
+					},
+					danger: {
+						label: "Danger!",
+						className: "btn-danger",
+						callback: function() {
+							Example.show("uh oh, look out!");
+						}
+					},
+					main: {
+						label: "Click ME!",
+						className: "btn-primary",
+						callback: function() {
+							Example.show("Primary button");
 						}
 					}
-				})
-				.catch(function(err) {
-					toggleAlert(err, false);
-				})
+				}
+			});
+		}
+
+		$scope.search = function(keyword) {
+
+			if (keyword !== undefined) {
+				$scope.cardsCol1.forEach(function(each) {
+					var index = $scope.cardsCol1.indexOf(each);
+					$scope.cardsCol1.splice(index, 1);
+				});
+				$scope.cardsCol2.forEach(function(each) {
+					var index = $scope.cardsCol1.indexOf(each);
+					$scope.cardsCol1.splice(index, 1);
+				});
+				$scope.cardsCol3.forEach(function(each) {
+					var index = $scope.cardsCol1.indexOf(each);
+					$scope.cardsCol1.splice(index, 1);
+				});
+
+				addToSearchHistory(keyword);
+
+				searchFactory.findUsers(keyword)
+					.then(function(users) {
+						var column = 1;
+						for (var user in users) {
+							sortCard(user, column);
+
+							if (column === 3) {
+								column = 1;
+							} else {
+								column = column + 1;
+							}
+						}
+					})
+					.catch(function(err) {
+						toggleAlert(err, false);
+					})
+			}
+
 		};
 
 		$scope.addToEmailList = function(email) {
@@ -84,18 +117,18 @@
 							card.products = products;
 
 							toggleAlert(null, true);
-							
+
 							switch (column) {
 								case 1:
-									
+
 									$scope.cardsCol1.push(card);
 									break;
 								case 2:
-									
+
 									$scope.cardsCol2.push(card);
 									break;
 								case 3:
-								
+
 									$scope.cardsCol3.push(card);
 									break;
 							}
@@ -130,16 +163,16 @@
 			$scope.$apply();
 		}
 
-		function getProductsList(){
+		function getProductsList() {
 
 			products.getProducts()
-				.then(function(products){
-					for (var product in products){
+				.then(function(products) {
+					for (var product in products) {
 						$scope.initProducts.push(product);
 					}
 					$scope.$apply();
 				})
-				.catch(function(err){
+				.catch(function(err) {
 					console.log(err);
 				})
 		}
@@ -150,7 +183,7 @@
 				$scope.search($scope.keyword);
 			}
 
-			if ($routeParams.keyword !== undefined){
+			if ($routeParams.keyword !== undefined) {
 				var keyword = $routeParams.keyword;
 				addToSearchHistory(keyword);
 			}

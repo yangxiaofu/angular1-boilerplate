@@ -1,6 +1,6 @@
 (function() {
 
-	var SignUpController = function($scope, $http, user) {
+	var SignUpController = function($scope, $http, user, $location) {
 		$scope.email = null;
 		$scope.password = null;
 		$scope.company = null;
@@ -18,18 +18,18 @@
 			data.phoneNumber = $scope.phoneNumber;
 
 			if (data.email === null || data.password === null || data.company === null || data.position === null || data.phoneNumber == null || data.name == null) {
-				console.log('something is null');
+				
 			} else {
 				user.signUp(data)
 					.then(function(response) {
-						console.log('Signed Up Successfully');
+
 						user.login($scope.email, $scope.password)
 							.then(function(response) {
-								console.log('Should redirect');
-								window.location.href = '#/selection';
+								$location.path('selection').replace();
+								$scope.$apply();
 							})
 							.catch(function(error) {
-								console.log('Problem Loggin In');
+								console.log(error);
 							})
 					})
 					.catch(function(error) {
@@ -39,7 +39,7 @@
 		}
 	}
 
-	SignUpController.$inject = ['$scope', '$http', 'userFactory'];
+	SignUpController.$inject = ['$scope', '$http', 'userFactory', '$location'];
 
 	angular.module('bconnectApp')
 		.controller('signUpController', SignUpController);
