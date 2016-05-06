@@ -1,5 +1,15 @@
-tr.category-items.ng-enter{
-  animation: fadeIn 0.2s;
+tr.my-products.ng-enter{
+  animation: bounceInLeft 0.5s;
+}
+tr.my-products.ng-leave{
+  animation: bounceOutLeft 0.5s;
+}
+
+li.my-categories.ng-enter{
+  animation: bounceInLeft 0.5s;
+}
+li.my-categories.ng-leave{
+  animation: bounceOutLeft 0.5s;
 }
 
 .view.ng-enter{
@@ -77,6 +87,7 @@ img.logo{
 
 /*Footer*/
 footer {
+  margin-top: 100px;
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 60px;

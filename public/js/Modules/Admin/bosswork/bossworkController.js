@@ -9,7 +9,6 @@
 		$scope.selectedCategory = null;
 		$scope.productToAdd = null;
 
-		init();
 		//Load anything on the page that needs to be loaded. 
 		function init() {
 			user.isLoggedIn()
@@ -19,7 +18,7 @@
 						user.isAdmin(userId)
 							.then(function(isAdmin){
 								if (isAdmin) {
-
+									getCategories()
 								}else{
 									$location.path('/').replace();
 									$scope.$apply();
@@ -36,7 +35,7 @@
 				})
 
 			
-			getCategories()
+			
 		}
 
 		function getCategories() {
@@ -49,7 +48,7 @@
 				})
 		}
 
-		
+		init();
 
 		$scope.addProductToCategory = function(category, product) {
 			categoryFactory.addProductToCategory($scope.productToAdd, $scope.selectedCategory)
@@ -116,7 +115,6 @@
 					$scope.categories.splice(index, 1);
 					categoryFactory.removeCategory(key)
 						.then(function() {
-							console.log('Success');
 							$scope.$apply();
 						})
 						.catch(function() {

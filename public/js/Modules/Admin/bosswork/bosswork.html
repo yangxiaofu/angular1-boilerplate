@@ -2,12 +2,12 @@
 	<div class="row">
 		<div class="col-md-6">
 			<form class="form-inline">
-				<input type="text" class="form-control" placeholder="Add a Category" ng-model="categoryToAdd" />
+				<input type="text" class="form-control" placeholder="Add a Category" ng-model="categoryToAdd" capitalize-first />
 				<button class="btn btn-primary" ng-click="addCategory(categoryToAdd)" ng-cloak>Add Category</button>
 			</form>
 			<h2>Existing Categories</h2>
 			<ul class="list-group">
-				<li class="list-group-item" ng-repeat="category in categories">{{category}} <span class="badge cursor-pointer" ng-click='removeCategory($index)'>Remove</span></li>
+				<li class="list-group-item my-categories" ng-repeat="category in categories">{{category}} <span class="badge cursor-pointer" ng-click='removeCategory($index)'>Remove</span></li>
 			</ul>
 		</div>
 	</div>
@@ -29,7 +29,7 @@
 				</form>
 			</p>
 			<table class="table table-hover" id="list-of-products-in-category">
-				<tr ng-repeat='product in productsInCategory'>
+				<tr class="my-products" ng-repeat='product in productsInCategory'>
 					<td>{{product}}</td>
 					<td><span class="badge" ng-click='removeProductFromCategory($index, product)'>Remove</span></td>
 				</tr>
