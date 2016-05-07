@@ -32,33 +32,41 @@
 		}
 
 		$scope.openDialog = function() {
-			bootbox.dialog({
-				message: "I am a custom dialog",
-				title: "Custom title",
-				buttons: {
-					success: {
-						label: "Success!",
-						className: "btn-success",
-						callback: function() {
-							Example.show("great success");
-						}
-					},
-					danger: {
-						label: "Danger!",
-						className: "btn-danger",
-						callback: function() {
-							Example.show("uh oh, look out!");
-						}
-					},
-					main: {
-						label: "Click ME!",
-						className: "btn-primary",
-						callback: function() {
-							Example.show("Primary button");
-						}
+			userFactory.isLoggedIn()
+				.then(function(authData) {
+					if (authData !== null) {
+						bootbox.dialog({
+							title: "Your message here",
+							message: '<label for="company">Company</label>' +
+								'<input class="form-control" placeholder="Company" id="company"/><br />' +
+								'<label for="message">Message</label>' +
+								'<textarea class="form-control" id="message" row="5">Hi, I would like to get more information on your products.  ' +
+								'Please reply to respond.' +
+								'</textarea><br />' +
+								'<label for="email-address">bcc</label>' +
+								'<input class="form-control" placeholder="Email Address" id="email-address">',
+							buttons: {
+								success: {
+									label: "Send",
+									className: "btn-success",
+									callback: function() {
+										var company = $('#company').val();
+										var message = $('#message').val();
+										var email = $('#email-address').val();
+										
+										
+										//Send a message in this statemetn
+										//Example.show("Hello " + name + ". You've chosen <b>" + answer + "</b>");
+									}
+								}
+							}
+						});
+					} else {
+						$location.path('/signup').replace();
+						$scope.$apply();
 					}
-				}
-			});
+				})
+
 		}
 
 		$scope.search = function(keyword) {
@@ -67,14 +75,14 @@
 
 				$scope.cardsCol1.forEach(function(each) {
 					var index = $scope.cardsCol1.indexOf(each);
-					
+
 					$scope.cardsCol1.splice(index, 1);
 				});
 				$scope.cardsCol2.forEach(function(each) {
-					
+
 					var index = $scope.cardsCol1.indexOf(each);
 					$scope.cardsCol2.splice(index, 1);
-					
+
 				});
 
 				$scope.cardsCol3.forEach(function(each) {
