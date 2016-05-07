@@ -1,5 +1,5 @@
 (function() {
-	var SearchController = function($scope, $rootScope, $window, $location, searchFactory, userFactory, $routeParams, searchHistoryFactory, products) {
+	var SearchController = function($scope, $rootScope, $window, $location, searchFactory, userFactory, $routeParams, searchHistoryFactory, products, $http) {
 		$scope.keyword = $routeParams.keyword;
 		$scope.cards = [];
 		$scope.cardsCol1 = [];
@@ -53,8 +53,24 @@
 										var company = $('#company').val();
 										var message = $('#message').val();
 										var email = $('#email-address').val();
-										
-										
+
+										data = {
+											to: "fudaviddong@gmail.com",
+											sender: "fudavid.dong@pentair.com",
+											subject: "Product Interest " + company,
+											message: message,
+											html: message
+										}
+
+										$http.post('https://dd-email.herokuapp.com/sendEmail', data)
+											.success(function(response){
+												console.log(response);
+											})
+											.catch(function(err){
+												console.log(err);
+											});
+
+
 										//Send a message in this statemetn
 										//Example.show("Hello " + name + ". You've chosen <b>" + answer + "</b>");
 									}
@@ -209,7 +225,7 @@
 		init();
 	}
 
-	SearchController.$inject = ['$scope', '$rootScope', '$window', '$location', 'searchFactory', 'userFactory', '$routeParams', 'searchHistoryFactory', 'FBProducts'];
+	SearchController.$inject = ['$scope', '$rootScope', '$window', '$location', 'searchFactory', 'userFactory', '$routeParams', 'searchHistoryFactory', 'FBProducts', '$http'];
 
 	angular.module('bconnectApp')
 		.controller('searchController', SearchController);

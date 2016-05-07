@@ -5,9 +5,16 @@
 				BASE: "https://bconnectto.firebaseio.com/"
 			}
 		})
-		
+
+	app.config(['$httpProvider', function($httpProvider) {
+		$httpProvider.defaults.useXDomain = true;
+		$httpProvider.defaults.withCredentials = true;
+		delete $httpProvider.defaults.headers.common["X-Requested-With"];
+		$httpProvider.defaults.headers.common["Accept"] = "application/json";
+		$httpProvider.defaults.headers.common["Content-Type"] = "application/json";
+	}]);
+
 	app.config(function($routeProvider) {
-		//Routes go here
 		$routeProvider
 			.when('/login', {
 				controller: 'loginController',
@@ -42,18 +49,20 @@
 				templateUrl: 'js/Modules/Profile/profile.html'
 			})
 			.when('/search', {
-				controller: 'searchController', 
+				controller: 'searchController',
 				templateUrl: 'js/Modules/Search/search.html'
 			})
 			.when('/search/:keyword', {
-				controller: 'searchController', 
+				controller: 'searchController',
 				templateUrl: 'js/Modules/Search/search.html'
 			})
 			.when('/test', {
-				controller: 'testController', 
+				controller: 'testController',
 				templateUrl: 'js/Modules/Test/test.html'
 			})
-			.otherwise({redirect: '/'})
+			.otherwise({
+				redirect: '/'
+			})
 	});
 
 
