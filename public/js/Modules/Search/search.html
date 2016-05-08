@@ -52,7 +52,7 @@
 							<button type="submit" class="btn btn-primary btn-block" ng-click="openDialog(card.Email)">Send a Message</button>
 						</div>
 						<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
-							<button type="submit" class="btn btn-danger btn-block">Add to email list</button>
+							<button type="submit" class="btn btn-danger btn-block" ng-click="addToEmailList(card.Email, card.Name)">Add to email list</button>
 						</div>
 					</div>
 				</div>
@@ -92,52 +92,26 @@
 							<button type="submit" class="btn btn-primary btn-block" ng-click="openDialog(card2.Email)">Send a Message</button>
 						</div>
 						<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
-							<button type="submit" class="btn btn-danger btn-block">Add to email list</button>
+							<button type="submit" class="btn btn-danger btn-block" ng-click="addToEmailList(card2.Email, card2.Name)">Add to email list</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-			<div class="panel panel-default myCard" ng-repeat="card3 in cardsCol3">
-				<div class="panel-body">
-					<div class="row">
-						<div class="col-md-3 col-sm-3 col-lg-3 col-sx-3">
-							<img alt="{{card3.Company}}" src="http://gravatar.com/avatar/{{card3.emailHash}}" class="img-rounded" />
-						</div>
-						<div class="col-md-9 col-sm-9 col-lg-9 col-xs-9">
-							<p>{{card3.Name}}</p>
-							<p><small>{{card3.Company}}</small></p>
-							<p>{{card3.Headline}}</p>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-						
-							<ul class="list-group">
-								<li class="list-group-item" ng-repeat="(key, value) in card3.products">
-									<a href="#/search/{{key}}">{{key}}</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-					
-					<div class="row">
-						<div class="col-md-12">
-							<strong>Website</strong>
-							<small><a href="http://{{card3.Website}}" target="_blank">{{card3.Website}}</a></small>
-						</div>
-					</div>
-					<div class="row" id="email-buttons">
-						<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
-							<button type="submit" class="btn btn-primary btn-block" ng-click="openDialog(card3.Email)">Send a Message</button>
-						</div>
-						<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
-							<button type="submit" class="btn btn-danger btn-block">Add to email list</button>
-						</div>
-					</div>
+			<!-- Email list goes here. -->
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					Email List
 				</div>
+				<ul class="list-group">
+					<li ng-repeat="(index, name) in nameList" class="list-group-item email-list">{{name}}<span ng-click="removeFromEmailList(name, index)" class="badge cursor-pointer">Remove</span>
+					</li>
+				</ul>
+
 			</div>
+			<button type="submit" class="btn btn-danger">Send</button>
+
 		</div>
 	</div>
 </div>

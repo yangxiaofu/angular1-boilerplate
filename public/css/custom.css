@@ -1,3 +1,10 @@
+li.email-list.ng-enter{
+  animation: bounceIn 0.5s;
+}
+li.email-list.ng-leave{
+  animation: bounceOut 0.5s;
+}
+
 tr.my-products.ng-enter{
   animation: bounceInLeft 0.5s;
 }

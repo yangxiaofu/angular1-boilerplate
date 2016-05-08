@@ -10,6 +10,8 @@
 		$scope.initProducts = [];
 
 		var emailSet = new Set();
+		$scope.emailList = [];
+		$scope.nameList = [];
 		$scope.hidden = true;
 		$scope.userProducts = [];
 		$scope.errorMessage = null;
@@ -114,7 +116,7 @@
 
 							
 							sortCard(user, column);
-							if (column === 3) {
+							if (column === 2) {
 								column = 1;
 							} else {
 								column = column + 1;
@@ -129,12 +131,34 @@
 
 		};
 
-		$scope.addToEmailList = function(email) {
+		$scope.removeFromEmailList = function(name, index){
+			emailSet.delete($scope.emailList[index]);
+			$scope.nameList.splice(index, 1);
+			$scope.emailList.splice(index, 1);
+
+			console.log($scope.nameList);
+			console.log($scope.emailList);
+		}
+
+		$scope.addToEmailList = function(email, name) {
+			emailListData = {
+				[email]: true,
+				email: email,
+				name: name
+			};
+
 			if (emailSet.has(email)) {
+		
+				var index = $scope.emailList.indexOf(email);
+				$scope.nameList.splice(index, 1);
+				$scope.emailList.splice(index, 1);
 				emailSet.delete(email);
 			} else {
+				$scope.emailList.push(email);
+				$scope.nameList.push(name);
 				emailSet.add(email);
 			}
+			console.log($scope.emailList);
 		}
 
 		function sortCard(user, column) {
@@ -142,7 +166,7 @@
 			return new Promise(function(resolve, reject) {
 				userFactory.getCard(user)
 					.then(function(card) {
-						console.log(`Card ${card}`);
+						
 						card.emailHash = calcMD5(card.Email);
 
 						userFactory.getProducts(card.userId)
@@ -160,13 +184,8 @@
 										
 										$scope.cardsCol2.push(card);
 										break;
-									case 3:
-										
-										$scope.cardsCol3.push(card);
-										break;
 								}
 								
-
 								$scope.hidden = false;
 								$scope.$apply();
 								resolve();
