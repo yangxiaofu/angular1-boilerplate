@@ -63,10 +63,10 @@
 										}
 
 										$http.post('https://dd-email.herokuapp.com/sendEmail', data)
-											.success(function(response){
+											.success(function(response) {
 												console.log(response);
 											})
-											.catch(function(err){
+											.catch(function(err) {
 												console.log(err);
 											});
 
@@ -91,21 +91,17 @@
 
 				$scope.cardsCol1.forEach(function(each) {
 					var index = $scope.cardsCol1.indexOf(each);
-
 					$scope.cardsCol1.splice(index, 1);
 				});
+
 				$scope.cardsCol2.forEach(function(each) {
-
-					var index = $scope.cardsCol1.indexOf(each);
+					var index = $scope.cardsCol2.indexOf(each);
 					$scope.cardsCol2.splice(index, 1);
-
 				});
 
 				$scope.cardsCol3.forEach(function(each) {
-
-					var index = $scope.cardsCol1.indexOf(each);
+					var index = $scope.cardsCol3.indexOf(each);
 					$scope.cardsCol3.splice(index, 1);
-
 				});
 
 				addToSearchHistory(keyword);
@@ -113,15 +109,18 @@
 				searchFactory.findUsers(keyword)
 					.then(function(users) {
 						var column = 1;
+						
 						for (var user in users) {
-							sortCard(user, column);
 
+							
+							sortCard(user, column);
 							if (column === 3) {
 								column = 1;
 							} else {
 								column = column + 1;
 							}
 						}
+
 					})
 					.catch(function(err) {
 						toggleAlert(err, false);
@@ -139,45 +138,54 @@
 		}
 
 		function sortCard(user, column) {
-			userFactory.getCard(user)
-				.then(function(card) {
-					card.emailHash = calcMD5(card.Email);
 
-					userFactory.getProducts(card.userId)
-						.then(function(products) {
-							card.products = products;
+			return new Promise(function(resolve, reject) {
+				userFactory.getCard(user)
+					.then(function(card) {
+						console.log(`Card ${card}`);
+						card.emailHash = calcMD5(card.Email);
 
-							toggleAlert(null, true);
+						userFactory.getProducts(card.userId)
+							.then(function(products) {
+								card.products = products;
 
-							switch (column) {
-								case 1:
+								toggleAlert(null, true);
 
-									$scope.cardsCol1.push(card);
-									break;
-								case 2:
+								switch (column) {
+									case 1:
+										
+										$scope.cardsCol1.push(card);
+										break;
+									case 2:
+										
+										$scope.cardsCol2.push(card);
+										break;
+									case 3:
+										
+										$scope.cardsCol3.push(card);
+										break;
+								}
+								
 
-									$scope.cardsCol2.push(card);
-									break;
-								case 3:
+								$scope.hidden = false;
+								$scope.$apply();
+								resolve();
 
-									$scope.cardsCol3.push(card);
-									break;
-							}
+							})
+							.catch(function(err) {
+								reject(err);
+								console.log(err);
+							})
 
-							$scope.hidden = false;
-							$scope.$apply();
-						})
-						.catch(function(err) {
-							console.log(err);
-						})
-
-				})
-				.catch(function(err) {
-					toggleAlert(err, false);
-				})
-
+					})
+					.catch(function(err) {
+						toggleAlert(err, false);
+					})
+			})
 
 		}
+
+		init();
 
 		function addToSearchHistory(keyword) {
 			searchHistoryFactory.addToSearchHistory(keyword)
@@ -222,7 +230,7 @@
 			getProductsList();
 		}
 
-		init();
+
 	}
 
 	SearchController.$inject = ['$scope', '$rootScope', '$window', '$location', 'searchFactory', 'userFactory', '$routeParams', 'searchHistoryFactory', 'FBProducts', '$http'];

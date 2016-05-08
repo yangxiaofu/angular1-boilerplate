@@ -31,12 +31,12 @@
 
 				//var url = FBURL.BASE + '/ProductIndex/' + keyword + '/Users';
 				var url = FBURL.BASE + '/SearchIndex/' + keyword + '/associatedUsers';
-				console.log(`URL: ${url}`);
+			
 				var url_ref = new Firebase(url);
 
 				url_ref.once('value', function(snapshot) {
 					var users = snapshot.val();
-					console.log(users);
+			
 					if (users !== null) {
 						resolve(users);
 					} else {
