@@ -8,6 +8,7 @@
 		$scope.selectedDropDownItem = null;
 		$scope.dropdownItems = ['Busbar', 'ERICO', 'Prince'];
 		$scope.initProducts = [];
+		$scope.hideSendButton = true;
 
 		var emailSet = new Set();
 		$scope.emailList = [];
@@ -136,8 +137,9 @@
 			$scope.nameList.splice(index, 1);
 			$scope.emailList.splice(index, 1);
 
-			console.log($scope.nameList);
-			console.log($scope.emailList);
+			if (emailSet.size === 0){
+				$scope.hideSendButton = true;
+			}
 		}
 
 		$scope.addToEmailList = function(email, name) {
@@ -148,17 +150,22 @@
 			};
 
 			if (emailSet.has(email)) {
-		
 				var index = $scope.emailList.indexOf(email);
 				$scope.nameList.splice(index, 1);
 				$scope.emailList.splice(index, 1);
 				emailSet.delete(email);
+
+				if (emailSet.size === 0){
+					$scope.hideSendButton = true;	
+				}
+				
 			} else {
 				$scope.emailList.push(email);
 				$scope.nameList.push(name);
 				emailSet.add(email);
+
+				$scope.hideSendButton = false;
 			}
-			console.log($scope.emailList);
 		}
 
 		function sortCard(user, column) {

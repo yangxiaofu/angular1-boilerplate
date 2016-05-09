@@ -1,3 +1,13 @@
+.email-list-panel.ng-hide{
+  animation: fadeOut 0.5s;
+}
+
+.email-list-panel.ng-show{
+  animation: fadeIn 0.5s;
+}
+
+
+
 li.email-list.ng-enter{
   animation: bounceIn 0.5s;
 }

@@ -100,7 +100,7 @@
 		</div>
 		<div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
 			<!-- Email list goes here. -->
-			<div class="panel panel-primary">
+			<div ng-hide="hideSendButton" class="panel panel-primary email-list-panel">
 				<div class="panel-heading">
 					Email List
 				</div>
@@ -110,7 +110,7 @@
 				</ul>
 
 			</div>
-			<button type="submit" class="btn btn-danger">Send</button>
+			<button type="submit" class="btn btn-danger" ng-hide="hideSendButton">Send</button>
 
 		</div>
 	</div>
