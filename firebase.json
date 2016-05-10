@@ -1,5 +1,5 @@
 {
-  "firebase": "ng-bconnect",
+  "firebase": "bconnectto",
   "public": "public",
   "ignore": [
     "firebase.json",

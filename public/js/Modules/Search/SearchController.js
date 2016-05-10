@@ -8,11 +8,9 @@
 		$scope.selectedDropDownItem = null;
 		$scope.dropdownItems = ['Busbar', 'ERICO', 'Prince'];
 		$scope.initProducts = [];
-		$scope.hideSendButton = true;
-
-		var emailSet = new Set();
-		$scope.emailList = [];
-		$scope.nameList = [];
+		
+		//$rootScope.emailSet = new Set();
+		
 		$scope.hidden = true;
 		$scope.userProducts = [];
 		$scope.errorMessage = null;
@@ -58,8 +56,8 @@
 										var email = $('#email-address').val();
 
 										data = {
-											to: "fudaviddong@gmail.com",
-											sender: "fudavid.dong@pentair.com",
+											to: email,
+											sender: $window.sessionStorage.email,
 											subject: "Product Interest " + company,
 											message: message,
 											html: message
@@ -112,10 +110,10 @@
 				searchFactory.findUsers(keyword)
 					.then(function(users) {
 						var column = 1;
-						
+
 						for (var user in users) {
 
-							
+
 							sortCard(user, column);
 							if (column === 2) {
 								column = 1;
@@ -132,13 +130,66 @@
 
 		};
 
-		$scope.removeFromEmailList = function(name, index){
-			emailSet.delete($scope.emailList[index]);
-			$scope.nameList.splice(index, 1);
-			$scope.emailList.splice(index, 1);
+		$scope.sendEmailToList = function() {
+			userFactory.isLoggedIn()
+				.then(function(authData) {
+					if (authData !== null) {
+						bootbox.dialog({
+							title: "Your message here",
+							message: '<label for="company">Company</label>' +
+								'<input class="form-control" placeholder="Company" id="company"/><br />' +
+								'<label for="message">Message</label>' +
+								'<textarea class="form-control" id="message" row="5">Hi, I would like to get more information on your products.  ' +
+								'Please reply to respond.' +
+								'</textarea><br />' +
+								'<label for="email-address">bcc</label>' +
+								'<input class="form-control" placeholder="Email Address" id="email-address">',
+							buttons: {
+								success: {
+									label: "Send",
+									className: "btn-success",
+									callback: function() {
+										var company = $('#company').val();
+										var message = $('#message').val();
+										var email = $('#email-address').val();
 
-			if (emailSet.size === 0){
-				$scope.hideSendButton = true;
+										data = {
+											to: email,
+											sender: $window.sessionStorage.email,
+											subject: "Product Interest " + company,
+											message: message,
+											html: message
+										}
+
+										$http.post('https://dd-email.herokuapp.com/sendEmail', data)
+											.success(function(response) {
+												console.log(response);
+											})
+											.catch(function(err) {
+												console.log(err);
+											});
+
+
+										//Send a message in this statemetn
+										//Example.show("Hello " + name + ". You've chosen <b>" + answer + "</b>");
+									}
+								}
+							}
+						});
+					} else {
+						$location.path('/signup').replace();
+						$scope.$apply();
+					}
+				})
+		}
+
+		$scope.removeFromEmailList = function(name, index) {
+			$rootScope.emailSet.delete($rootScope.emailList[index]);
+			$rootScope.nameList.splice(index, 1);
+			$rootScope.emailList.splice(index, 1);
+
+			if ($rootScope.emailSet.size === 0) {
+				$rootScope.hideSendButton = true;
 			}
 		}
 
@@ -149,22 +200,30 @@
 				name: name
 			};
 
-			if (emailSet.has(email)) {
-				var index = $scope.emailList.indexOf(email);
-				$scope.nameList.splice(index, 1);
-				$scope.emailList.splice(index, 1);
-				emailSet.delete(email);
+			
 
-				if (emailSet.size === 0){
-					$scope.hideSendButton = true;	
-				}
+			if ($rootScope.emailSet.has(email)) {
 				
-			} else {
-				$scope.emailList.push(email);
-				$scope.nameList.push(name);
-				emailSet.add(email);
+				var index = $rootScope.emailList.indexOf(email);
+				$rootScope.nameList.splice(index, 1);
+				$rootScope.emailList.splice(index, 1);
+				$rootScope.emailSet.delete(email);
 
-				$scope.hideSendButton = false;
+				if ($rootScope.emailSet.size === 0) {
+					$rootScope.hideSendButton = true;
+				}
+
+			} else {
+				
+				$rootScope.emailList.push(email);
+				$rootScope.nameList.push(name);
+				$rootScope.emailSet.add(email);
+				console.log(`RootScope emailSet ${$rootScope.emailSet.size}`);
+				$rootScope.emailSet.forEach(function(each){
+					console.log(each);
+				})
+				
+				$rootScope.hideSendButton = false;
 			}
 		}
 
@@ -173,7 +232,7 @@
 			return new Promise(function(resolve, reject) {
 				userFactory.getCard(user)
 					.then(function(card) {
-						
+
 						card.emailHash = calcMD5(card.Email);
 
 						userFactory.getProducts(card.userId)
@@ -184,15 +243,15 @@
 
 								switch (column) {
 									case 1:
-										
+
 										$scope.cardsCol1.push(card);
 										break;
 									case 2:
-										
+
 										$scope.cardsCol2.push(card);
 										break;
 								}
-								
+
 								$scope.hidden = false;
 								$scope.$apply();
 								resolve();
@@ -243,8 +302,15 @@
 		}
 
 		function init() {
+			console.log(`Email Set: ${$rootScope.emailSet}`);
+			console.log(`Email Set: ${$rootScope.emailSet.size}`);
+			if ($rootScope.emailSet.size === 0){
+				$rootScope.hideSendButton = true;
+			}else{
+				$rootScope.hideSendButton = false;
+			}
+
 			if ($scope.keyword !== undefined) {
-				$scope.hidden = false;
 				$scope.search($scope.keyword);
 			}
 

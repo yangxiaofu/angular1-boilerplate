@@ -3,7 +3,9 @@
 		var FBURL = {};
 		FBURL.BASE = $rootScope.FBURL.BASE;
 		var USERS = 'Users';
-
+		$rootScope.emailSet = new Set();
+		$rootScope.emailList = [];
+		$rootScope.nameList = [];
 		var factory = {};
 
 		factory.getProducts = function(userId) {
@@ -159,8 +161,6 @@
 				})
 			});
 		}
-
-
 
 		factory.get = function(userId, branch) {
 			var url = FBURL.BASE + '/' + userBranchId + '/' + userId + '/' + branch;
@@ -339,9 +339,12 @@
 						reject(error);
 					} else {
 						$rootScope.loggedIn = true;
+
 						$window.sessionStorage.loggedIn = true;
 						$window.sessionStorage.uid = authData.auth.uid;
 						$window.sessionStorage.profileImageURL = authData.profileImageURL;
+						$window.sessionStorage.email = authData.password.email;
+
 
 						resolve('Success');
 					}
@@ -355,6 +358,10 @@
 			var ref = new Firebase(url);
 			$window.sessionStorage.loggedIn = false;
 			$window.sessionStorage.uid = null;
+			$window.sessionStorage.email = null;
+			$rootScope.emailSet.clear();
+			$rootScope.emailList = [];
+			$rootScope.nameList = [];
 			$rootScope.loggedIn = false;
 			$rootScope.uid = null;
 			ref.unauth();
