@@ -218,7 +218,6 @@
 				$rootScope.emailList.push(email);
 				$rootScope.nameList.push(name);
 				$rootScope.emailSet.add(email);
-				console.log(`RootScope emailSet ${$rootScope.emailSet.size}`);
 				$rootScope.emailSet.forEach(function(each){
 					console.log(each);
 				})
@@ -302,8 +301,7 @@
 		}
 
 		function init() {
-			console.log(`Email Set: ${$rootScope.emailSet}`);
-			console.log(`Email Set: ${$rootScope.emailSet.size}`);
+			
 			if ($rootScope.emailSet.size === 0){
 				$rootScope.hideSendButton = true;
 			}else{

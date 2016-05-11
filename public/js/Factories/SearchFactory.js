@@ -11,7 +11,6 @@
 		var searchIndex = 'SearchIndex';
 		var searchCount = 'searchCount';
 
-
 		var factory = {};
 
 		factory.findUsers = function(keyword) {
@@ -93,7 +92,7 @@
 
 		function removeString(string, userId){
 			var url = FBURL.BASE + searchIndex + '/' + string + '/associatedUsers/' + userId;
-			console.log(`URL ${url}`);
+			
 			var url_ref = new Firebase(url);
 			url_ref.remove();
 		}
@@ -102,7 +101,7 @@
 			if (userId === undefined) {
 				userId = 'BETA_USER';
 			}
-
+			
 			var stringObjects = {};
 			var output = [];
 			output.push(string);

@@ -151,10 +151,13 @@
 			});
 
 			//Inserting the categories into the database
+			
 			var categories_url = FBURL.BASE + '/ProductIndex/' + insertedProductArray[0] + '/Categories';
 			var categories_url_ref = new Firebase(categories_url);
-
-			categories_url_ref.update(categories);
+			if (categories !== null){
+				categories_url_ref.update(categories);	
+			}
+			
 
 			for (var x in relatedProductsArray) {
 				updateBranch(relatedProductsArray[x], insertedProductArray[0]);
@@ -295,14 +298,17 @@
 				[keyword]: true
 			}
 
-			
 			//Indexes teh keyword of phrase into the search index in order to find the user. 
 			searchFactory.addString(keyword, userId);
 
+			user_data = {
+				[userId]: true
+			}
 
 			//Grabs the cateogry of the user and adds it into the database;
 			var url = FBURL.BASE + '/Users/' + userId + '/Categories';
 			var url_ref = new Firebase(url);
+			
 			return new Promise(function(resolve, reject) {
 				url_ref.once("value", function(snapshot) {
 					var categories = snapshot.val();
