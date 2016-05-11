@@ -247,6 +247,7 @@
 					searchFactory.addString(data.company, uid);
 
 					var key = {};
+					console.log('Data ' + JSON.stringify(data));
 
 					var cardData = {
 						Name: data.name,

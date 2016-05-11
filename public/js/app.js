@@ -2,7 +2,8 @@
 	var app = angular.module('bconnectApp', ['ngRoute', 'ngAnimate'])
 		.run(function($rootScope) {
 			$rootScope.FBURL = {
-				BASE: "https://bconnectto.firebaseio.com/"
+				BASE: "https://bconnectto-prod.firebaseio.com/" // For production
+				//BASE: "https://bconnectto.firebaseio.com" // For development
 			}
 		})
 

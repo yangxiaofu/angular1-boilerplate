@@ -1,5 +1,5 @@
 {
-  "firebase": "bconnectto",
+  "firebase": "bconnectto-prod",
   "public": "public",
   "ignore": [
     "firebase.json",
