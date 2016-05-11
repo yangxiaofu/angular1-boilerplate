@@ -1,5 +1,4 @@
 (function() {
-
 	var SignUpController = function($scope, $http, user, $location) {
 		$scope.email = null;
 		$scope.password = null;
@@ -7,6 +6,7 @@
 		$scope.name = null;
 		$scope.phoneNumber = null;
 		$scope.position = null;
+		$scope.webAddress = null
 
 		$scope.signUpUser = function() {
 			var data = {};
@@ -16,8 +16,9 @@
 			data.position = $scope.position;
 			data.name = $scope.name;
 			data.phoneNumber = $scope.phoneNumber;
+			data.webAddress = $scope.webAddress;
 
-			if (data.email === null || data.password === null || data.company === null || data.position === null || data.phoneNumber == null || data.name == null) {
+			if (data.email === null || data.password === null || data.company === null || data.position === null || data.phoneNumber === null || data.name === null || data.webAddress === null) {
 				
 			} else {
 				user.signUp(data)

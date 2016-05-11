@@ -254,6 +254,7 @@
 						Headline: data.position,
 						Email: data.email,
 						PhoneNumber: data.phoneNumber,
+						Website: data.webAddress,
 						userId: userData.uid
 					}
 
@@ -313,6 +314,7 @@
 						userId: userData.uid,
 						email: data.email,
 						full_name: data.name,
+						website: data.webAddress,
 						isAdmin: false
 					}
 
