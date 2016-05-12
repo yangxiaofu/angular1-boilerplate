@@ -30,10 +30,12 @@
 							<p>{{card.Name}}</p>
 							<p><small>{{card.Company}}</small></p>
 							<p>{{card.Headline}}</p>
+							<p>{{card.Description}}</p>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
+							<h5>Keywords</h5>
 							<ul class="list-group">
 								<li class="list-group-item" ng-repeat="(key, value) in card.products">
 									<a href="#/search/{{key}}">{{key}}</a>

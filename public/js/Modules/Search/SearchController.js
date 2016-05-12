@@ -1,5 +1,7 @@
 (function() {
-	var SearchController = function($scope, $rootScope, $window, $location, searchFactory, userFactory, $routeParams, searchHistoryFactory, products, $http) {
+	var SearchController = function($scope, $rootScope, $window, $location, searchFactory, userFactory, $routeParams, searchHistoryFactory, products, $http, emailFactory) {
+
+
 		$scope.keyword = $routeParams.keyword;
 		$scope.cards = [];
 		$scope.cardsCol1 = [];
@@ -8,9 +10,10 @@
 		$scope.selectedDropDownItem = null;
 		$scope.dropdownItems = ['Busbar', 'ERICO', 'Prince'];
 		$scope.initProducts = [];
-		
+
+
 		//$rootScope.emailSet = new Set();
-		
+
 		$scope.hidden = true;
 		$scope.userProducts = [];
 		$scope.errorMessage = null;
@@ -33,6 +36,7 @@
 		}
 
 		$scope.openDialog = function() {
+			var emailList = [];
 			userFactory.isLoggedIn()
 				.then(function(authData) {
 					if (authData !== null) {
@@ -55,21 +59,30 @@
 										var message = $('#message').val();
 										var email = $('#email-address').val();
 
+										emailList.push(email);
+
 										data = {
-											to: email,
+											to: emailList,
 											sender: $window.sessionStorage.email,
 											subject: "Product Interest " + company,
 											message: message,
 											html: message
 										}
-
-										$http.post('https://dd-email.herokuapp.com/sendEmail', data)
+										emailFactory.sendEmail(data)
 											.success(function(response) {
 												console.log(response);
 											})
 											.catch(function(err) {
 												console.log(err);
 											});
+
+										// $http.post('https://dd-email.herokuapp.com/sendEmail', data)
+										// 	.success(function(response) {
+										// 		console.log(response);
+										// 	})
+										// 	.catch(function(err) {
+										// 		console.log(err);
+										// 	});
 
 
 										//Send a message in this statemetn
@@ -154,7 +167,7 @@
 										var email = $('#email-address').val();
 
 										data = {
-											to: email,
+											to: $rootScope.emailList,
 											sender: $window.sessionStorage.email,
 											subject: "Product Interest " + company,
 											message: message,
@@ -200,10 +213,10 @@
 				name: name
 			};
 
-			
+
 
 			if ($rootScope.emailSet.has(email)) {
-				
+
 				var index = $rootScope.emailList.indexOf(email);
 				$rootScope.nameList.splice(index, 1);
 				$rootScope.emailList.splice(index, 1);
@@ -214,14 +227,14 @@
 				}
 
 			} else {
-				
+
 				$rootScope.emailList.push(email);
 				$rootScope.nameList.push(name);
 				$rootScope.emailSet.add(email);
-				$rootScope.emailSet.forEach(function(each){
+				$rootScope.emailSet.forEach(function(each) {
 					console.log(each);
 				})
-				
+
 				$rootScope.hideSendButton = false;
 			}
 		}
@@ -301,10 +314,10 @@
 		}
 
 		function init() {
-			
-			if ($rootScope.emailSet.size === 0){
+
+			if ($rootScope.emailSet.size === 0) {
 				$rootScope.hideSendButton = true;
-			}else{
+			} else {
 				$rootScope.hideSendButton = false;
 			}
 
@@ -323,7 +336,7 @@
 
 	}
 
-	SearchController.$inject = ['$scope', '$rootScope', '$window', '$location', 'searchFactory', 'userFactory', '$routeParams', 'searchHistoryFactory', 'FBProducts', '$http'];
+	SearchController.$inject = ['$scope', '$rootScope', '$window', '$location', 'searchFactory', 'userFactory', '$routeParams', 'searchHistoryFactory', 'FBProducts', '$http', 'emailFactory'];
 
 	angular.module('bconnectApp')
 		.controller('searchController', SearchController);
