@@ -61,6 +61,10 @@
 				controller: 'testController',
 				templateUrl: 'js/Modules/Test/test.html'
 			})
+			.when('/description', {
+				controller: 'descriptionController',
+				templateUrl: 'js/Modules/Description/description.html'
+			})
 			.otherwise({
 				redirect: '/'
 			})
