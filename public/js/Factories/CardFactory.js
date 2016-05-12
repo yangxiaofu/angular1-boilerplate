@@ -33,6 +33,8 @@
 
 		}
 
+		
+
 		factory.getCard = function(userId) {
 			return new Promise(function(resolve, reject) {
 

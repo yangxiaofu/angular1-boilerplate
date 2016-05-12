@@ -26,7 +26,7 @@
 
 						user.login($scope.email, $scope.password)
 							.then(function(response) {
-								$location.path('selection').replace();
+								$location.path('description').replace();
 								$scope.$apply();
 							})
 							.catch(function(error) {
