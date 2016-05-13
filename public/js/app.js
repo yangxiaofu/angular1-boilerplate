@@ -65,6 +65,10 @@
 				controller: 'descriptionController',
 				templateUrl: 'js/Modules/Description/description.html'
 			})
+			.when('/completed', {
+				controller: 'completedController', 
+				templateUrl: 'js/Modules/Completed/completed.html'
+			})
 			.otherwise({
 				redirect: '/'
 			})

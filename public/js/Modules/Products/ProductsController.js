@@ -71,6 +71,11 @@
 			}
 
 			//Scope
+
+			$scope.moveToCompleted = function(){
+				$location.path('completed');
+			}
+
 			$scope.addProductToUser = function(product) {
 
 				if (product !== null) {

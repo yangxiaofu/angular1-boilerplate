@@ -3,7 +3,8 @@
 		<div class="col-md-8">
 			<div id="keyword-entry">
 				<form class="form-inline">
-					<label for="keyword">Add Keywords that other companies can use to find your company</label><br />
+					<div class="lead">Add Keywords that represent your company</div>
+					<label for="keyword">Keywords</label><br />
 					<input list="keywords" type="text" class="form-control" ng-model="productToAdd" id="keyword" placeholder="Enter a Product Name" capitalize-first/>
 						<datalist id="keywords">
 							<option ng-repeat="product in initProducts" value="{{product}}">
@@ -27,16 +28,18 @@
 		<div class="col-md-4">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h4>My Products</h4>
+					<h4>Keywords</h4>
 				</div>
 				<div class="panel-body">
-					
 						<ul class="list-group">
 							<li class="list-group-item myProduct" ng-repeat="myProduct in myProducts">{{myProduct}}<span class="badge" ng-click="removeProductFromUser(myProduct)">x</span></li>
 						</ul>				
-	
+				</div>
+				<div class="panel-footer">
+					<button type='submit' ng-click="moveToCompleted()" class="btn btn-success">Complete</button>
 				</div>
 			</div>
+
 		</div>
 	</div>
 	
