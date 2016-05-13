@@ -1,11 +1,20 @@
 (function(){
-	var DescriptionController = function($scope, cardFactory, $location, user, $window){
+	var DescriptionController = function($scope, cardFactory, $location, user, $window, $timeout){
 		$scope.description = null;
+		$scope.saveStatus = 'Save';
+		$scope.hideContinue = true;
 
 		$scope.submitDescription = function(description){
 			cardFactory.addDescription(description)
 				.then(function(){
-					$location.path('products').replace();
+					$scope.saveStatus = 'Saved';
+					$scope.hideContinue = false;
+					$scope.$apply();
+
+					$timeout(function(){
+						$scope.saveStatus = 'Save';
+						$scope.$apply();
+					}, 2000)
 				})
 				.catch(function(err){
 					console.log('Error ' + err);
@@ -47,7 +56,7 @@
 
 	}
 
-	DescriptionController.$inject = ['$scope', 'cardFactory', '$location', 'userFactory', '$window'];
+	DescriptionController.$inject = ['$scope', 'cardFactory', '$location', 'userFactory', '$window', '$timeout'];
 
 	angular.module('bconnectApp')
 		.controller('descriptionController', DescriptionController);

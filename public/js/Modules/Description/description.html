@@ -5,7 +5,15 @@
 			<p>In a few words, please describe your business that gives your potential customer an idea of what you are.</p>
 			<label class="sr-only" for="description">Hi</label>
 			<textarea type="text" ng-model="description" class="form-control" cols="20">{{description}}</textarea><br />
-			<button type="submit" class="btn btn-primary" ng-click="submitDescription(description)">Submit</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-2 col-sm-2 col-xs-2">
+			<button type="submit" class="btn btn-primary" ng-model="saveStatus" ng-click="submitDescription(description)">{{saveStatus}}</button>
+		</div>
+		
+		<div ng-hide="hideContinue" class="col-md-2 col-sm-2 col-sm-offset-8  col-xs-2 col-xs-offset-7 col-md-offset-5">
+			<button type="submit" class="btn btn-link"><a href="#/products">Continue</a></button>
 		</div>
 	</div>
 </div>
