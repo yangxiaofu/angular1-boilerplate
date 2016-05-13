@@ -38,14 +38,12 @@
 			user.isLoggedIn()
 				.then(function(authData){
 					if (authData === null){
+						console.log(`Auth Data ${authData}`);
 						$location.path('login').replace();
-						return;
 					}else{
 						var userId = $window.sessionStorage.uid;
 						getDescription(userId);
 					}
-
-
 				})
 				.catch(function(err){
 					console.log(`${err}`)
