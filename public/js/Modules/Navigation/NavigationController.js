@@ -1,5 +1,5 @@
 (function() {
-	var NavigationController = function($scope, user, $rootScope, $location, $window) {
+	var NavigationController = function($scope) {
 		var loggedIn = $window.sessionStorage.loggedIn;
 		$scope.loggedIn = loggedIn;
 		$scope.keyword = null;
@@ -35,7 +35,7 @@
 		init();
 	}
 
-	NavigationController.$inject = ['$scope', 'userFactory', '$rootScope', '$location', '$window'];
+	NavigationController.$inject = ['$scope'];
 
 	angular.module('bconnectApp')
 		.controller('navigationController', NavigationController);
