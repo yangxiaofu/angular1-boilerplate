@@ -5,6 +5,6 @@
 
 	HomeController.$inject = ['$scope'];
 
-	angular.modules('myApp')
+	angular.module('myApp')
 		.controller('homeController', HomeController);
 }())
