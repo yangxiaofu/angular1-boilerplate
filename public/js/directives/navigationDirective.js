@@ -1,5 +1,5 @@
 (function() {
-	angular.module('bconnectApp')
+	angular.module('myApp')
 		.directive('navBar', function() {
 			return {
 				controller: 'navigationController as navCtrl',

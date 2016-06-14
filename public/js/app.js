@@ -1,5 +1,5 @@
 (function() {
-	var app = angular.module('bconnectApp', ['ngRoute', 'ngAnimate'])
+	var app = angular.module('myApp', ['ngRoute', 'ngAnimate'])
 		.run(function($rootScope) {
 			//Constants cna go in here. 
 		})
@@ -19,7 +19,5 @@
 				templateUrl: 'js/Modules/Home/home.html'
 			})
 	});
-
-
 
 }())

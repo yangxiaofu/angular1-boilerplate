@@ -1,5 +1,5 @@
 (function() {
-	angular.module('bconnectApp')
+	angular.module('myApp')
 		.directive('capitalizeFirst', function($parse) {
 			return {
 				require: 'ngModel',

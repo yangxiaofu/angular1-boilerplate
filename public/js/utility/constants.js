@@ -1,5 +1,5 @@
 (function(){
-	angular.module('bconnectApp')
+	angular.module('myApp')
 		.value('appSettings', {
 			title: 'BConnect',
 			version: '1.0.0',

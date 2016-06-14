@@ -37,7 +37,7 @@
 
 	NavigationController.$inject = ['$scope'];
 
-	angular.module('bconnectApp')
+	angular.module('myApp')
 		.controller('navigationController', NavigationController);
 
 }())

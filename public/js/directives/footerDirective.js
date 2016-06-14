@@ -1,5 +1,5 @@
 (function() {
-	angular.module('bconnectApp')
+	angular.module('myApp')
 		.directive('footerBar', function(){
 			return {
 				templateUrl: 'js/Modules/Footer/footer.html'
